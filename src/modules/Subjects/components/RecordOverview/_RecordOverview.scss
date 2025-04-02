@@ -1,0 +1,100 @@
+.recorded-session-informations {
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  .recorded-overview {
+    padding: 2rem;
+    border-bottom: 1px solid #dadada;
+    .title {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      color: #000;
+      margin-bottom: 1rem;
+    }
+    .overview-stats-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .flex-stat {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        p {
+          font-weight: 500;
+          font-size: 15px;
+          color: #000;
+        }
+      }
+    }
+  }
+  main {
+    .buttons-container {
+      border-bottom: 1px solid #dadada;
+      position: relative;
+      .buttons {
+        display: flex;
+        gap: 1rem;
+        .clicked {
+          color: #937ff1;
+        }
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.2rem 1.6rem;
+          border: none;
+          background-color: #fff;
+          font-size: 1.5rem;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 0.6);
+          text-align: center;
+          cursor: pointer;
+          overflow: hidden;
+          min-width: 9rem;
+        }
+      }
+    }
+    .sections {
+      padding-top: 2rem;
+    }
+    header {
+      background-color: #d4f2f7;
+      padding: 1.3rem 2rem;
+      font-size: 1.8rem;
+    }
+    .recorded-title {
+      margin: 1rem 2rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 1.6rem;
+      background-color: #f6f5f6;
+      gap: 2rem;
+      .play-icon {
+        height: 2.5rem;
+        width: 2.5rem;
+        cursor: pointer;
+      }
+      p {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+.underline {
+  position: absolute;
+  width: 100.141px;
+  height: 2px;
+  left: 91.1719px;
+  background: rgb(147, 127, 241);
+  transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  top: 4.49rem;
+}
+.no-magazines {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  color: #878787;
+  font-size: 1.6rem;
+}

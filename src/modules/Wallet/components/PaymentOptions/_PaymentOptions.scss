@@ -1,0 +1,52 @@
+.payment-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 12px;
+  border: 1px solid rgba(218, 218, 218, 1);
+  .payment-option {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    border-right: 1px solid rgba(218, 218, 218, 1);
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      span {
+        font-size: 1.9rem;
+        font-weight: 400;
+      }
+    }
+    .account {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      p {
+        font-size: 1.6rem;
+        color: rgba(124, 124, 124, 1);
+      }
+      span {
+        font-size: 1.6rem;
+      }
+    }
+    .account-rib {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      p {
+        font-size: 1.6rem;
+        color: rgba(124, 124, 124, 1);
+      }
+      span {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+.poste {
+  border-right: 1px solid #fff !important;
+}

@@ -1,0 +1,211 @@
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;  
+}
+.groupe-sessions-info {
+  z-index: 3;
+  padding: 1.7rem 2.8rem;
+  width: 80rem;
+  padding-bottom: 3rem;
+  height: 78rem;
+  background-color:#fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 2.4rem;
+    border-bottom: 2px dashed rgba(218, 218, 218, 1);
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        color: rgba(173, 173, 173, 1);
+        font-size: 1.3rem;
+        font-weight: 400;
+      }
+      img {
+        cursor: pointer;
+      }
+    }
+    .related-chapter {
+      font-size: 1.7rem;
+      font-weight: 500;
+      margin-bottom: 1.1rem;
+    }
+    .groupe-infos {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 5.5rem;
+      div {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        p {
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: rgba(94, 94, 94, 1);
+        }
+        span {
+          font-size: 1.5rem;
+          font-weight: 400;
+          color: #000;
+        }
+        .subject-span {
+          color: #fff;
+          font-size: 1.1rem;
+          font-weight: 500;
+          background-color: rgba(147, 127, 241, 1);
+          padding: 0.3rem 1.35rem;
+          border-radius: 6px;
+        }
+        img {
+          height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .modal-content {
+    margin-top: 2.5rem;
+    .live-sessions-count {
+      font-family: Poppins;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: rgba(139, 139, 139, 1);
+    }
+    .live-sessions-container {
+      padding: 1.7rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 12rem;
+      border-bottom: 2px dashed rgba(218, 218, 218, 1);
+    }
+    .is-soonest {
+      background-color: rgba(241, 241, 241, 1);
+    }
+    .live-session-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 2.4rem;
+      padding: 0.8rem;
+      border-radius: 5px;
+      position: relative;
+      &:hover {
+        background-color: rgba(241, 241, 241, 1);
+      }
+      .session-state {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        p {
+          color: rgba(173, 173, 173, 1);
+          font-size: 1.3rem;
+          font-weight: 400;
+        }
+        span {
+          padding: 0 1rem;
+          font-weight: 400;
+          font-size: 1.3rem;
+          color: #fff;
+          border-radius: 3px;
+          background-color: rgba(0, 174, 112, 1);
+        }
+      }
+      .session-title {
+        font-weight: 500;
+        font-size: 1.6rem;
+      }
+      .session-date {
+        font-family: Poppins;
+        font-weight: 400;
+        font-size: 1.3rem;
+        line-height: 100%;
+        color: rgba(94, 94, 94, 1);
+      }
+      .closed {
+        span {
+          background-color: rgba(230, 47, 81, 1);
+        }
+      }
+      .closed-title {
+        color: rgba(129, 129, 129, 1);
+        text-decoration: line-through;
+      }
+    }
+  }
+  .purchase {
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .with-records {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 3.7rem;
+      p {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 27px;
+      }
+      input[type="checkbox"] {
+        height: 2rem;
+        width: 2rem;
+        border-color: rgba(218, 218, 218, 1);
+      }
+    }
+    .extra-pricing {
+      font-weight: 500;
+      font-size: 14px;
+      text-align: right;
+      color: rgba(147, 127, 241, 1);
+    }
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border: none;
+    padding-top: 1.45rem;
+    padding-bottom: 1.45rem;
+    background-color: rgba(147, 127, 241, 1);
+    color: #fff;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      
+      background-color: rgba(120, 100, 220, 1);
+    }
+  }
+}
+.cursor {
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  left: -3rem;
+}

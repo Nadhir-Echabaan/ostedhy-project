@@ -1,0 +1,132 @@
+.one-chapter-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px) scale(1);
+  }
+  .card-content {
+    border: 1px solid rgba(218, 218, 218, 1);
+    border-top:none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius:10px ;
+    padding: 1.3rem 1.7rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .first-row-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    span {
+      background-color: rgba(254, 208, 43, 1);
+      font-size: 1.1rem;
+      font-weight: 550;
+      padding: 0.2rem 0.8rem;
+      border-radius: 6px;
+    }
+  }
+  .second-row-info {
+    padding: 1.7rem 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    span {
+      font-weight: 500;
+      color: rgba(94, 94, 94, 1);
+      font-size: 1.4rem;
+    }
+  }
+  .third-row-info {
+    padding-bottom:1.4rem ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 100%;
+      color: rgba(94, 94, 94, 1);
+    }
+    .reviews {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+  .fourth-row-info {
+    padding-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    span {
+      font-weight: 400;
+      font-size: 1.4rem;
+      color: rgba(94, 94, 94, 1);
+    }
+    div {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      gap: 1rem;
+      p {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+    }
+    img {
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+    }
+  }
+  .fifth-row-info {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+      border: none;
+      background-color: rgb(48, 193, 217);
+      padding-top: 0.9rem !important;
+      padding-bottom: 0.9rem !important;
+      border-radius: 13px;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+    .is-purchased {
+      background-color: #fff;
+      color:rgba(231, 43, 71, 1); 
+      border: 1px solid rgba(218, 218, 218, 1);
+    }
+  }
+}
+.star-for-chapter{
+  cursor: pointer;
+  img {
+    height: 2rem;
+    width: 2rem;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+  border: 1px solid rgba(94, 94, 94, 1);
+  border-radius: 50%;
+  position: absolute;
+  background-color: #fff;
+  top: 2%;
+  right: 2%;
+}
+.teacher-img {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+}

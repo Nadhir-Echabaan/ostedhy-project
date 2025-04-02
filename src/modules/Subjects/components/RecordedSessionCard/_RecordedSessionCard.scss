@@ -1,0 +1,23 @@
+.one-live-session-card {
+  height: 40rem;
+}
+.no-content {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+  color: #878787;
+  margin: 28px auto;
+}
+.position-relative {
+  position: relative;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px) scale(1);
+  }
+}
+.diff{
+  &:hover{
+    transform: none;
+  }
+}

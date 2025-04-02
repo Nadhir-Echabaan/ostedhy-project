@@ -1,0 +1,6 @@
+@use '../../shared/assets/styles/abstracts/colors' as *;
+@forward "./Dashboard/Dashboard";
+
+.dashboard_feature {
+  color: $text;
+}

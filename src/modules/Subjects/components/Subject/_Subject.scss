@@ -1,0 +1,102 @@
+.subject {
+  height: 32rem;
+}
+.subject-image {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rgba(60, 110, 225, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  span {
+    color: rgba(200, 232, 245, 1);
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+}
+.subject-informations {
+  padding: 1.6rem;
+  border: 1px solid rgba(218, 218, 218, 1);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top: none;
+  .subject-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.7rem;
+    .percentage {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: rgba(94, 94, 94, 1);
+    }
+  }
+  .subject-stats {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 100%;
+      color: rgba(94, 94, 94, 1);
+    }
+    .reviews {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+  .buy-btn {
+    display: flex;
+    justify-content: center;
+  }
+  .btn {
+    background-color: rgba(48, 193, 217, 1);
+    padding-top: 0.9rem !important;
+    padding-bottom: 0.9rem !important;
+    border-radius: 13px;
+    width: 100%;
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+  .is-purchased {
+    background-color: #fff;
+    color: rgba(231, 43, 71, 1);
+    border: 1px solid rgba(218, 218, 218, 1);
+  }
+}
+.star-container {
+  cursor: pointer;
+  img {
+    height: 2rem;
+    width: 2rem;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 4rem;
+  border: 1px solid rgba(94, 94, 94, 1);
+  border-radius: 50%;
+  position: absolute;
+  background-color: #fff;
+  top: 4%;
+  right: 2%;
+}
+.position-relative {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px); 
+  }
+  position: relative;
+}

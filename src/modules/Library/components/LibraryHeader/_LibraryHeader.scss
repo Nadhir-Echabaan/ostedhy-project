@@ -1,0 +1,32 @@
+.nav-bar {
+  padding: 0rem 4rem;
+  border-bottom: 1px solid #dadada;
+  position: relative;
+  .buttons {
+    display: flex;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem 1.6rem;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-weight: 450;
+      font-size: 1.6rem;
+      color: rgb(196, 196, 196);
+      max-width:100.234px ;
+    }
+    .colored {
+      color: rgb(147, 127, 241);
+    }
+  }
+  span {
+    top: 46.5px;
+    height: 2px;
+    background: rgb(147, 127, 241);
+    width: 100.234px;
+    position: absolute;
+    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

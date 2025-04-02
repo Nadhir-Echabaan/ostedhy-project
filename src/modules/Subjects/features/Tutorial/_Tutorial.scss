@@ -1,0 +1,6 @@
+.tutorial-container {
+  display: grid;
+  grid-template-columns: 4fr 1.8fr;
+  padding: 3rem 2.5rem;
+  column-gap: 5rem;
+}

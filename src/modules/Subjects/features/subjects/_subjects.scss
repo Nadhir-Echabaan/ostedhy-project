@@ -1,0 +1,7 @@
+.subjects-grid {
+  padding: 2.5rem 1.6rem 0rem 1.6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 2rem;
+  row-gap: 4rem;
+}

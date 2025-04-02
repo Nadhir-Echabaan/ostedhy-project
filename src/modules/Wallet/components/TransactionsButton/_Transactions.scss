@@ -1,0 +1,53 @@
+.transactions {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.7rem;
+  border: 1px solid rgba(218, 218, 218, 1);
+  border-radius: 12px;
+  padding: 2.7rem 2.5rem;
+  .balance {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    .text {
+      font-size: 1.9rem;
+      font-weight: 400;
+      color: rgba(141, 141, 141, 1);
+    }
+    .points {
+      font-size: 2.4rem;
+      font-weight: 600;
+      span {
+        color: #8d8d8d;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    gap: 2.3rem;
+    button {
+      border: none;
+      background-color: transparent;
+      color: rgba(0, 0, 0, 1);
+      font-size: 1.6rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .add-point {
+      width: 15.8rem;
+      height: 5rem;
+      background-color: rgba(254, 208, 43, 1);
+      border-radius: 13px;
+      padding: 1.25rem 4rem;
+    }
+    .transfer-point {
+      width: 15.8rem;
+      height: 5rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(15, 30, 66, 1);
+      border-radius: 13px;
+    }
+  }
+}

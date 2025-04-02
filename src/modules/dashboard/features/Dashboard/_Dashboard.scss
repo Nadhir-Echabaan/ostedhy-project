@@ -1,0 +1,32 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 4fr 1.25fr;
+
+  .right-side-bar {
+    border-left: 1px solid rgba(218, 218, 218, 1);
+  }
+  main {
+    padding: 3rem 1.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    gap:4.4rem ;
+    .section-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2.1rem;
+      .tab-right {
+        .chapters-title {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.8rem;
+          p{
+            font-size: 1.6rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}

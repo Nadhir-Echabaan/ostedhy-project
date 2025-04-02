@@ -1,0 +1,194 @@
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+.success-pay-modal {
+  width: 64.5rem;
+  height: 48rem;
+  padding: 2rem 6rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  .images-flex {
+    display: flex;
+    align-items: start;
+  }
+  img {
+    min-height: 8rem;
+    min-width: 8rem;
+    padding-bottom: 1.8rem;
+  }
+  .close-btn {
+    min-height: 3.3rem;
+    min-width: 3.3rem;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    cursor: pointer;
+  }
+  .payment-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+    padding-bottom: 2.7rem;
+    p {
+      font-family: Poppins;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      text-align: center;
+      text-transform: capitalize;
+    }
+    span {
+      font-family: Poppins;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 27px;
+      letter-spacing: 0%;
+      text-align: center;
+      text-transform: capitalize;
+      color: rgba(120, 120, 122, 1);
+    }
+  }
+  .purchase-informations {
+    padding: 1.6rem 2.4rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-radius: 8px;
+    border: 1px solid rgba(218, 218, 218, 1);
+    margin-bottom: 1.7rem;
+    .right-part {
+      .session-title {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 100%;
+        letter-spacing: 0%;
+      }
+      ._first {
+        margin-bottom: 0.8rem;
+      }
+      ._second {
+        margin-bottom: 0.4rem;
+      }
+      ._third {
+        margin-bottom: 0.4rem;
+      }
+      ._fourth {
+        margin-bottom: 1.5rem;
+      }
+      ._sixth {
+        margin-bottom: 0.7rem;
+      }
+    }
+    .left-part {
+      ._first {
+        margin-bottom: 1rem;
+      }
+      ._second {
+        margin-bottom: 1rem;
+      }
+      ._third {
+        margin-bottom: 2.7rem;
+      }
+      .division-flex {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        span {
+          font-family: Poppins;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
+      .subject-flex {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        span {
+          background-color: rgba(231, 43, 71, 1);
+          padding: 0.2rem 0.5rem;
+          border-radius: 6px;
+          color: #fff;
+          font-weight: 500;
+          font-size: 1.1rem;
+        }
+      }
+      .invoice-flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.7rem;
+        span {
+          font-family: Poppins;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
+    }
+  }
+  button {
+    width: 100%;
+    border: none;
+    background-color: rgba(48, 193, 217, 1);
+    padding: 1.35rem 0rem;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 500;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    &:hover {
+      background-color: #34b1db;
+    }
+  }
+}
+
+.very-light-gray {
+  font-size: 1.3rem;
+  color: rgba(173, 173, 173, 1);
+  font-weight: 400;
+}
+.light-gray {
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: rgba(94, 94, 94, 1);
+}
+.teacher-name {
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.package {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: rgba(0, 173, 244, 1);
+}

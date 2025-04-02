@@ -1,0 +1,8 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 26rem 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  background-color:#fff;
+  overflow-y: scroll;
+}

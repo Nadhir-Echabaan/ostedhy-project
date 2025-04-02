@@ -1,0 +1,71 @@
+.header {
+  img {
+    cursor: pointer;
+  }
+  border-bottom: 1px solid #dadada;
+  padding: 1.6rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .right-side {
+    display: flex;
+    align-items: center;
+    gap:3.6rem;
+    .title{
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 24px;
+      color: #222;
+    }
+    .search {
+      padding: 0 1rem; 
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-radius: 13px;
+      border: 1px solid rgba(232, 232, 232, 1);
+      input {
+        border: none;
+        min-width: 35rem;
+        min-height: 3.7rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #222;
+      }
+    }
+  }
+  .left-side {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    .user-avatar {
+      margin-left:2rem;
+    }
+    .notification {
+      padding: 1rem;
+      border-radius: 50%;
+      border:1px solid rgba(232, 232, 232, 1);
+    }
+    .wallet {
+      display: flex;
+      align-items: center;
+      gap:1.5rem;
+      padding:0 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(232,232,232,1);
+      .balance  {
+        p {
+          font-size: 1.4rem;
+          font-weight: 500;
+          line-height: 20px;
+        }
+        span {
+          color: rgba(15, 30, 66, 1); 
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+}
