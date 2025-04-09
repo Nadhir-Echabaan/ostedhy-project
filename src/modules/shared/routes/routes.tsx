@@ -8,6 +8,7 @@ import subjectsRoutes from '../../Subjects/routes/routes'
 import libraryRoutes from "../../Library/routes/routes"
 import offerRoutes from "../../Offers/routes/routes"
 import walletRoutes from "../../Wallet/routes/routes"
+import profilRoutes from "../../MyProfile/routes/routes"
 
 const routes = [
   ...sharedRoutes,
@@ -20,6 +21,8 @@ const routes = [
   ...libraryRoutes,
   ...offerRoutes,
   ...walletRoutes,
+  ...profilRoutes
+  
 ]
 
 export default routes

@@ -1,0 +1,13 @@
+.progressbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  span {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+  }
+}

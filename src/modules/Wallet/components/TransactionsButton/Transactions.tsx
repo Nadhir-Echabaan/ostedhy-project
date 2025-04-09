@@ -1,4 +1,4 @@
-function Transactions({setIsOpenModal}: { setIsOpenModal: any }) {
+function Transactions({ setIsOpenModal, setIsOpenTransferPointModal }: { setIsOpenModal: any; setIsOpenTransferPointModal: any }) {
   return (
     <div className="transactions">
       <div className="balance">
@@ -9,7 +9,7 @@ function Transactions({setIsOpenModal}: { setIsOpenModal: any }) {
       </div>
       <div className="buttons">
         <button className="add-point" onClick={() => setIsOpenModal(true)}>Add Point</button>
-        <button className="transfer-point">Transfer Point</button>
+        <button className="transfer-point" onClick={() => setIsOpenTransferPointModal(true)}>Transfer Point</button>
       </div>
     </div>
   );

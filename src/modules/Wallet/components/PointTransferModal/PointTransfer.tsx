@@ -4,8 +4,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CloseButton from "../../assets/fi_x-circle.svg"; 
-
-function BankTransfer({ setIsOpenBankTransferModal }) {
+function PointTransfer({ setIsOpenTransferPointModal }) {
   const formik = useFormik({
     initialValues: {
       code: "",
@@ -30,18 +29,18 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
     <>
       <div className="modal-overlay"></div>
       <div className="position-relative-for-modal">
-        <div className="bank-transfer-modal">
+        <div className="point-transfer-modal">
           <div className="recharge-top">
-            <p>Bank Transfer</p>
+            <p>Transfer Point</p>
           </div>
           <div className="title">
             <p>Add your beneficiary ID and amount</p>
           </div>
           <form onSubmit={formik.handleSubmit}>
             <div className="field-container">
-              <label htmlFor="code">Code</label>
+              <label htmlFor="code">Recipient</label>
               <input
-                placeholder="Add Your Reference"
+                placeholder="Add Your Recipient"
                 type="number"
                 name="code"
                 id="code"
@@ -69,28 +68,17 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
               ) : null}
             </div>
 
-            <div className="field-container">
-              <label htmlFor="description">Description</label>
-              <input
-                placeholder="Add Your Description"
-                type="text"
-                name="description"
-                id="amount"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.description}
-              />
-              {formik.touched.description && formik.errors.description ? (
-                <div className="error">{formik.errors.description}</div>
-              ) : null}
-            </div>
-            <button>Add Points</button>
+            <button>Transfer Points</button>
           </form>
         </div>
-        <img className="close-button" src={CloseButton} onClick={() => setIsOpenBankTransferModal(false)}/>
+        <img
+          className="close-button"
+          src={CloseButton}
+          onClick={() => setIsOpenTransferPointModal(false)}
+        />
       </div>
     </>
   );
 }
 
-export default BankTransfer;
+export default PointTransfer;

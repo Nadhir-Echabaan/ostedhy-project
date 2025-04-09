@@ -1,0 +1,67 @@
+.wallet_section_table {
+  outline: 1px solid #dadada;
+  margin-top: 1.5rem;
+}
+.wallet_section_table table thead tr th {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  color: #8a8a8a;
+}
+.code {
+  color: rgb(60, 110, 225) !important;
+  font-family: Poppins !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
+}
+.wallet_section_table table tbody tr td {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 18px;
+}
+.css-12dojyv-MuiTableCell-root-MuiTablePagination-root {
+  border-bottom: none !important;
+  font-size: 1.4rem !important;
+}
+.MuiTablePagination-selectLabel {
+  font-size: 1.4rem !important;
+}
+.MuiTablePagination-displayedRows {
+  font-size: 1.4rem !important;
+}
+.MuiSvgIcon-root {
+  height: 2rem !important;
+  width: 4rem !important;
+}
+.MuiTablePagination-select {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+}
+.pagination .MuiTablePagination-select {
+  display: flex !important;
+  align-items: center !important; /* This aligns the text and the chevron */
+  font-size: 14px;
+  color: #555;
+}
+
+.pagination .MuiTablePagination-selectIcon {
+  margin-left: 8px; /* Adjust the space between the text and chevron */
+  vertical-align: middle; /* Ensure the chevron is aligned properly with the text */
+}
+.table-title {
+  font-size: 1.8rem;
+  margin-top: 4rem;
+}
+.empty_data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 140px 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #878787;
+}

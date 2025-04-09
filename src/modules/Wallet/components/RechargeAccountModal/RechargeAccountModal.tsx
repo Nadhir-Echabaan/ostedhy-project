@@ -2,7 +2,7 @@ import CloseButton from "../../assets/fi_x-circle.svg";
 import BankTransfer from "../../assets/Group 98.svg";
 import OnlinePayment from "../../assets/Group 99.svg";
 import D17 from "../../assets/Group 100.svg";
-function RechargeAccountModal({ setIsOpenModal }: { setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>> }) {
+function RechargeAccountModal({ setIsOpenModal, setIsOpenBankTransferModal }) {
   return (
     <>
       <div className="modal-overlay"></div>
@@ -15,7 +15,13 @@ function RechargeAccountModal({ setIsOpenModal }: { setIsOpenModal: React.Dispat
             <p>Choose your Fill-Up method</p>
           </div>
           <div className="fill-up-methods">
-            <div className="fill-up-method">
+            <div
+              className="fill-up-method"
+              onClick={() => {
+                setIsOpenModal(false);
+                setIsOpenBankTransferModal(true);
+              }}
+            >
               <img src={BankTransfer} />
               <p>Bank Transfer</p>
             </div>
@@ -29,7 +35,11 @@ function RechargeAccountModal({ setIsOpenModal }: { setIsOpenModal: React.Dispat
             </div>
           </div>
         </div>
-        <img src={CloseButton} className="close-button" onClick={() => setIsOpenModal(false)} />
+        <img
+          src={CloseButton}
+          className="close-button"
+          onClick={() => setIsOpenModal(false)}
+        />
       </div>
     </>
   );

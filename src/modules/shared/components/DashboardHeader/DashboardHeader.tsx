@@ -16,7 +16,7 @@ function DashboardHeader() {
   return (
     <header className="header">
       <div className="right-side">
-        <h1 className="title">{section}</h1>
+        <p className="title">{section}</p>
         <div className="search">
           <img src={SearchIcon} />
           <input

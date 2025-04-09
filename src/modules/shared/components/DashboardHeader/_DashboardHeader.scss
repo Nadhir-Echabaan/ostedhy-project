@@ -2,6 +2,7 @@
   img {
     cursor: pointer;
   }
+  max-height: 8.4rem;
   border-bottom: 1px solid #dadada;
   padding: 1.6rem 1.6rem;
   display: flex;
@@ -14,10 +15,11 @@
     .title{
       font-size: 1.8rem;
       font-weight: 600;
-      line-height: 24px;
+      //line-height: 24px;
       color: #222;
     }
     .search {
+      margin-top: 1rem;
       padding: 0 1rem; 
       background-color: #fff;
       display: flex;

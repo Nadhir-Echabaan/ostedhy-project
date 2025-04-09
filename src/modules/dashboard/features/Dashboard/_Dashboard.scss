@@ -9,8 +9,8 @@
     padding: 3rem 1.7rem;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    gap:4.4rem ;
+    justify-content: center;
+    gap: 4.4rem;
     .section-tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -21,7 +21,19 @@
           align-items: center;
           gap: 1rem;
           margin-bottom: 1.8rem;
-          p{
+          p {
+            font-size: 1.6rem;
+            font-weight: 500;
+          }
+        }
+      }
+      .tab-left {
+        .expired-soon-title {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.8rem;
+          p {
             font-size: 1.6rem;
             font-weight: 500;
           }

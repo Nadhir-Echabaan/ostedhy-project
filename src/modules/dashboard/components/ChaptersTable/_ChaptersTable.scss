@@ -1,0 +1,40 @@
+._flex-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.title_and_stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.date_and_teacher {
+  display: flex; 
+  flex-direction: column;
+}
+.chapter_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title_and_stats {
+  p {
+    font-size:1.5rem;
+    font-weight: 500;
+  }
+  span {
+    color: rgba(94, 94, 94, 1);
+    font-size: 1.4rem;
+  }
+}
+.date_and_teacher {
+  color: rgba(161, 161, 161, 1);
+  font-size: 1.4rem;
+  span {
+    color: rgba(94, 94, 94, 1);
+  }
+  .teacher-name {
+    color: rgba(147, 127, 241, 1);
+  }
+}
