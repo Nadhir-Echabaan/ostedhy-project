@@ -1,3 +1,55 @@
-.css-1nxbkmn-MuiPickersCalendarHeader-root {
-  font-size: 2rem !important;
+.css-1chuxo2-MuiPickersCalendarHeader-label {
+  font-size: 1.8rem !important;
+}
+.css-16hplv9-MuiButtonBase-root-MuiIconButton-root-MuiPickersCalendarHeader-switchViewButton {
+  display: none !important;
+}
+.css-17f9e7e-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+  font-size: 1.2rem !important;
+}
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root {
+  font-size: 1.4rem !important;
+}
+.css-qct7wd-MuiButtonBase-root-MuiPickersDay-root {
+  font-size: 1.4rem !important;
+}
+.Mui-selected {
+  background-color: rgb(15, 30, 66) !important;
+  border-radius:25% !important;
+}
+.MuiPickersDay-today {
+  border-radius: 25% !important;
+  //border: none !important;
+  border: 1px solid rgb(218, 218, 218) !important;
+  margin: 4.8px 2px !important;
+}
+.calendar {
+  width: 100%;
+  border-bottom: 1px solid rgb(218, 218, 218) !important;
+}
+.css-5wchs2-MuiDateCalendar-root{
+  margin: none !important;
+  width:auto !important ;
+}
+.css-1rl1vrc-MuiDayCalendar-header {
+  justify-content: space-between !important;
+  margin-right:18px;
+  margin-left: 18px;
+}
+.css-1pv2de5-MuiDayCalendar-weekContainer {
+  justify-content: space-between !important;
+  gap: 1rem !important; 
+  margin-right:18px !important;
+  margin-left: 18px !important;
+}
+
+.css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root {
+  margin: 4.8px 2px !important;
+}
+.MuiDayCalendar-weekContainer:last-child {
+  display: none !important;
+}
+.MuiSvgIcon-root {
+  height: 2rem !important;
+  width: 2rem !important;
 }

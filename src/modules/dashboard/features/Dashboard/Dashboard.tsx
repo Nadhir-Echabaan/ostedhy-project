@@ -4,6 +4,7 @@ import ExpireSoon from "../../components/ExpireSoon/ExpireSoon";
 import Chapters from "../../components/Chapters/Chapters";
 import LearningProgress from "../../components/LearningProgress/LearningProgress";
 import BasicDateCalendar from "../../components/CalendarPicker/CalendarPicker";
+import LiveSessions from "../../components/LiveSessions/LiveSessions";
 
 function Dashboard() {
   return (
@@ -22,6 +23,7 @@ function Dashboard() {
       </main>
       <div className="right-side-bar">
         <BasicDateCalendar />
+        <LiveSessions />  
       </div>
     </div>
   );
