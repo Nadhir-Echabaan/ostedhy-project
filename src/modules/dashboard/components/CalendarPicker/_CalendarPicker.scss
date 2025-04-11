@@ -13,9 +13,12 @@
 .css-qct7wd-MuiButtonBase-root-MuiPickersDay-root {
   font-size: 1.4rem !important;
 }
-.Mui-selected {
-  background-color: rgb(15, 30, 66) !important;
-  border-radius:25% !important;
+.date-calendar {
+
+  .Mui-selected {
+    background-color: rgb(15, 30, 66) !important;
+    border-radius:25% !important;
+  }
 }
 .MuiPickersDay-today {
   border-radius: 25% !important;

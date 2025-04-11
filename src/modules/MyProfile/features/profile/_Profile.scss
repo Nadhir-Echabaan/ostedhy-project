@@ -1,11 +1,11 @@
-.update-fields-left {
+.profil-main-layout { 
+  display: grid;
+  padding: 2.6rem 1.6rem;
+  grid-template-columns: 4fr 2.4fr;
+  gap: 2rem; 
+}
+.grid-right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
-}
-.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root {
-  border-radius: 10px !important;
-  font-size: 1.4rem !important;
-  font-weight: 500 !important;
+  gap: 1.7rem;
 }

@@ -1,30 +1,38 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import FirstNameInput from "../Inputs/FirstNameInput";
+import LastNameInput from "../Inputs/LastNameInput";
+import EmailInput from "../Inputs/EmailInput";
+import PhoneNumber from "../Inputs/PhoneNumberInput";
+import StudentIdInput from "../Inputs/StudentIdInput";
+import DatePickerInput from "../Inputs/DatePickerInput";
+import StateSelectorInput from "../Inputs/StateSelectorInput";
+import CodePostalInput from "../Inputs/CodePostalInput";
+import ClassSelectInput from "../Inputs/ClassSelectInput";
+import FormRow from "../FormRow/FormRow";
 
 function UpdatingProfileForm() {
   return (
-    <>
-      <div className="update-fields-left">
-        <Box sx={{ width: 500, maxWidth: "100%" }} className="text-input-field">
-          <TextField
-            fullWidth
-            label=""
-            id="fullWidth"
-            placeholder="Enter your first name"
-          />
-        </Box>
-        <Box sx={{ width: 500, maxWidth: "100%" }}>
-          <TextField fullWidth label="" id="fullWidth" disabled value="NadhirChabane17@gmail.com" placeholder="Enter your email" />
-        </Box>
-        <Box sx={{ width: 500, maxWidth: "100%" }}>
-          <TextField fullWidth label="" id="fullWidth" />
-        </Box>
-        <Box sx={{ width: 500, maxWidth: "100%" }}>
-          <TextField fullWidth label="" id="fullWidth" />
-        </Box>
+    <div className="updating-personal-infos">
+      <div className="form">
+        <FormRow>
+          <FirstNameInput />
+          <LastNameInput />
+        </FormRow>
+        <FormRow>
+          <EmailInput />
+          <PhoneNumber />
+        </FormRow>
+        <FormRow>
+          <StudentIdInput />
+          <DatePickerInput />
+        </FormRow>
+        <FormRow>
+          <StateSelectorInput />
+          <ClassSelectInput />
+        </FormRow>
+        <CodePostalInput />
+        <button className="save-changes-btn">Save Changes</button>
       </div>
-    </>
+    </div>
   );
 }
-
 export default UpdatingProfileForm;

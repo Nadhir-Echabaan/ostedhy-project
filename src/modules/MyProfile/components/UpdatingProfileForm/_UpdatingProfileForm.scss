@@ -1,0 +1,113 @@
+.updating-personal-infos {
+  border-radius: 10px;
+  border: 1px solid rgb(232, 232, 232);
+}
+.fullname-input {
+  display: flex;
+  align-items: center;
+  gap: 3.8rem;
+  margin-bottom: 3.8rem;
+}
+.profile-section-input {
+  width: 100% !important;
+  padding: 1.2rem 1rem !important;
+  font-size: 1.5rem !important;
+  &:disabled {
+    background-color: #f5f5f5 !important;
+  }
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+.profile-section-label {
+  padding-bottom: 10px;
+  font-size: 1.6rem;
+  color: #494949 !important;
+}
+.form {
+  padding: 3rem 2.6rem;
+}
+.disabled-label {
+  color: #a3a3a3 !important;
+}
+.underlined-id {
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 24px;
+  color: #78787a !important;
+}
+// Date picker
+.date-picker {
+  width: 100% !important;
+  font-size: 1.5rem !important;
+  &:hover {
+    border: none !important;
+    outline: none !important;
+  }
+}
+.css-10o2lyd-MuiStack-root {
+  padding-top: 0px !important;
+}
+.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
+  font-size: 1.4rem !important;
+}
+.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 1.4rem 1.2rem !important;
+  height: 2.3rem !important;
+}
+
+// save changes button
+.save-changes-btn {
+  width: 100%;
+  border: none;
+  background-color: rgb(48, 193, 217);
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  height: 5.6rem;
+  border-radius: 13px;
+}
+.save-changes-btn:hover {
+  cursor: pointer;
+  background-color: rgb(36, 145, 164);
+}
+// postal code input
+.postal-code {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 14px;
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid #dadada;
+  padding: 15px 18px;
+  margin-bottom: 3.5rem;
+  &:focus {
+    border: 2px solid #0b6bcb;
+    outline: none;
+  }
+}
+// state select
+.select {
+  .MuiSelect-root {
+    width: 100% !important;
+    height: 56px !important;
+    font-size: 1.5rem !important;
+  }
+}
+.MuiOption-root {
+  font-size: 1.4rem !important;
+}
+.date-picker-input {
+  height: 4.94rem !important;
+  border-radius: 5px;
+  border: 1px solid #dde7ee;
+  background-color: #fbfcfe;
+  &:focus {
+    border: 2px solid #0b6bcb;
+    outline: none;
+  }
+}
