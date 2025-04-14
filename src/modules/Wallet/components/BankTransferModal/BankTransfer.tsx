@@ -1,15 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// @ts-nocheck
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import CloseButton from "../../assets/fi_x-circle.svg"; 
+import CloseButton from "../../assets/fi_x-circle.svg";
+import { useAddPointsMutation, useGetAddPointsHistoryQuery } from "../../data/wallet";
 
-function BankTransfer({ setIsOpenBankTransferModal }) {
+function BankTransfer({ setIsOpenBankTransferModal }: { setIsOpenBankTransferModal: React.Dispatch<React.SetStateAction<boolean>> }) {
+  const [addPoints] = useAddPointsMutation();
+  
+
   const formik = useFormik({
     initialValues: {
-      code: "",
-      amount: "",
+      code: null,
+      amount: null,
       description: "",
     },
     validationSchema: Yup.object({
@@ -24,8 +25,17 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
         .min(5, "Description must be at least 5 characters")
         .required("Description is required"),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: async (values) => {
+      try {
+        await addPoints({ values }).unwrap();
+        formik.resetForm();
+        setIsOpenBankTransferModal(false);
+      } catch (error) {
+        console.error("Failed to add points:", error);
+      }
+    },
   });
+
   return (
     <>
       <div className="modal-overlay"></div>
@@ -49,10 +59,11 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
                 onBlur={formik.handleBlur}
                 value={formik.values.code}
               />
-              {formik.touched.code && formik.errors.code ? (
+              {formik.touched.code && formik.errors.code && (
                 <div className="error">{formik.errors.code}</div>
-              ) : null}
+              )}
             </div>
+
             <div className="field-container">
               <label htmlFor="amount">Amount</label>
               <input
@@ -64,9 +75,9 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
                 onBlur={formik.handleBlur}
                 value={formik.values.amount}
               />
-              {formik.touched.amount && formik.errors.amount ? (
+              {formik.touched.amount && formik.errors.amount && (
                 <div className="error">{formik.errors.amount}</div>
-              ) : null}
+              )}
             </div>
 
             <div className="field-container">
@@ -75,19 +86,25 @@ function BankTransfer({ setIsOpenBankTransferModal }) {
                 placeholder="Add Your Description"
                 type="text"
                 name="description"
-                id="amount"
+                id="description"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.description}
               />
-              {formik.touched.description && formik.errors.description ? (
+              {formik.touched.description && formik.errors.description && (
                 <div className="error">{formik.errors.description}</div>
-              ) : null}
+              )}
             </div>
-            <button>Add Points</button>
+
+            <button type="submit">Add Points</button>
           </form>
         </div>
-        <img className="close-button" src={CloseButton} onClick={() => setIsOpenBankTransferModal(false)}/>
+        <img
+          className="close-button"
+          src={CloseButton}
+          alt="Close"
+          onClick={() => setIsOpenBankTransferModal(false)}
+        />
       </div>
     </>
   );

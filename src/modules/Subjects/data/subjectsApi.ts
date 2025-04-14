@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import supabase from "../../shared/supabase/supabase";
+import supabase from "../../shared/store/services/supabase";
 
 const subjectsApi = createApi({
   reducerPath: "subjectsApi",
@@ -12,7 +12,7 @@ const subjectsApi = createApi({
         if (error) console.error(error);
         return { data };
       },
-      providesTags: ["Subjects"]
+      providesTags: ["Subjects"],
     }),
     updateSubject: builder.mutation({
       async queryFn({ subjectId, favorite }) {
@@ -25,7 +25,7 @@ const subjectsApi = createApi({
         if (error) return { error };
         return;
       },
-      invalidatesTags:["Subjects"]
+      invalidatesTags: ["Subjects"],
     }),
     getFavoriteSubjects: builder.query({
       async queryFn() {
@@ -35,10 +35,14 @@ const subjectsApi = createApi({
           .eq("favorite", true);
         if (error) console.error(error);
         return { data };
-      }
+      },
     }),
   }),
 });
 
-export const { useGetSubjectsQuery, useUpdateSubjectMutation, useGetFavoriteSubjectsQuery } = subjectsApi;
+export const {
+  useGetSubjectsQuery,
+  useUpdateSubjectMutation,
+  useGetFavoriteSubjectsQuery,
+} = subjectsApi;
 export default subjectsApi;

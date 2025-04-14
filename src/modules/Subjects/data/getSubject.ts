@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import supabase from "../../shared/supabase/supabase";
+import supabase from "../../shared/store/services/supabase";
 
 const subjectApi = createApi({
   reducerPath: "subjectApi",
-  baseQuery: async () => ({ data: null }), 
-  tagTypes: ["Subject"], 
+  baseQuery: async () => ({ data: null }),
+  tagTypes: ["Subject"],
   endpoints: (builder) => ({
     getSubject: builder.query({
       async queryFn({ subjectId }) {

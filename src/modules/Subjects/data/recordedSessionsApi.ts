@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import supabase from "../../shared/supabase/supabase";
+import supabase from "../../shared/store/services/supabase";
 
 const recordedSessionsApi = createApi({
   reducerPath: "recordedSessionsApi",
@@ -43,6 +43,9 @@ const recordedSessionsApi = createApi({
   }),
 });
 
-export const { useGetRecordedSessionsQuery, useUpdateRecordedSessionMutation , useGetFavoriteRecordedSessionsQuery} =
-  recordedSessionsApi;
+export const {
+  useGetRecordedSessionsQuery,
+  useUpdateRecordedSessionMutation,
+  useGetFavoriteRecordedSessionsQuery,
+} = recordedSessionsApi;
 export default recordedSessionsApi;

@@ -4,7 +4,7 @@ function TableRow({
   time,
   daysOfWeek,
   onOpenModal,
-  onGroupeSessionId,
+  onGroupeSessionsId,
 }) {
   const Monday = sessions.filter((session) => session.day === "Monday");
   const Tuesday = sessions.filter((session) => session.day === "Tuesday");
@@ -24,7 +24,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -38,7 +38,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -52,7 +52,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -66,7 +66,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -80,7 +80,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -94,7 +94,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}
@@ -108,7 +108,7 @@ function TableRow({
                   session={session}
                   key={session}
                   onOpenModal={onOpenModal}
-                  onGroupeSessionId={onGroupeSessionId}
+                  onGroupeSessionsId={onGroupeSessionsId}
                 />
               );
           })}

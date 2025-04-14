@@ -15,6 +15,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 
+import { useGetTransferHistoryQuery } from "../../data/wallet";
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -105,12 +106,19 @@ function createData(
   return { recipientId, recipient, sender, amount, date };
 }
 
-const rows = [
-  createData("#--", "hassen", "meriem", 8, "28/12/2020"),
-  createData("#37560980", "omar", "ghassen", 7, "18/03/2025"),
-];
 
 export default function Transfer() {
+  const {data: transferHistory} = useGetTransferHistoryQuery();
+
+  const rows = transferHistory?.map((item) =>
+    createData(
+      item.recipient_id,
+      item.recipient,
+      item.sender,
+      item.amount_in_dinar,
+      item.date
+    )
+  );
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -158,7 +166,7 @@ export default function Transfer() {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
             ).map((row) => (
               <TableRow key={row.recipientId}>
@@ -186,13 +194,13 @@ export default function Transfer() {
             )}
           </TableBody>
         </Table>
-        {rows.length === 0 && <div className="empty_data">Empty</div>}
-        {rows.length !== 0 && 
+        {rows?.length === 0 && <div className="empty_data">Empty</div>}
+        {rows?.length !== 0 && 
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <TablePagination
             className="pagination"
             rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-            count={rows.length}
+            count={rows?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             slotProps={{

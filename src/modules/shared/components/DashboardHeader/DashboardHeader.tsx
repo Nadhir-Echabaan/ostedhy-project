@@ -3,6 +3,8 @@ import NotifIcon from "../../assets/NavIcons/fi_bell.svg";
 import WalletIcon from "../../assets/NavIcons/u_wallet.svg";
 import UserAvatarIcon from "../../assets/NavIcons/Ellipse 1.svg";
 
+import { useGetUserPointsQuery } from "../../../Sessions/data/sessions.ts";
+
 function DashboardHeader() {
   let section = window.location.pathname.split("/").at(1);
   if (section === "sessions") section = "Live Session"; 
@@ -13,6 +15,11 @@ function DashboardHeader() {
   if (section === "wallet") section = "Wallet"; 
   if (section === "profil") section = "Profil"; 
 
+  const { data: amount, isLoading } = useGetUserPointsQuery({});
+  if (isLoading || !amount) {
+    return <p>Loading...</p>;
+  }
+  let userPoints = amount.points;
   return (
     <header className="header">
       <div className="right-side">
@@ -31,7 +38,7 @@ function DashboardHeader() {
           <img src={WalletIcon} />
           <div className="balance">
             <p>Votre Solde</p>
-            <span>0 PTS</span>
+            <span>{userPoints} PTS</span>
           </div>
         </div>
         <img src={UserAvatarIcon} className="user-avatar" />

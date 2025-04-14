@@ -9,20 +9,22 @@ function ClassSelectInput() {
       >
         Class
       </label>
-      <Select
-        disabled
-        placeholder="Bac sciences expérimentales"
-        indicator={<KeyboardArrowDown />}
-        sx={{
-          width: 240,
-          [`& .${selectClasses.indicator}`]: {
-            transition: "0.2s",
-            [`&.${selectClasses.expanded}`]: {
-              transform: "rotate(-180deg)",
+      <div className="select">
+        <Select
+          disabled
+          placeholder="Bac sciences expérimentales"
+          indicator={<KeyboardArrowDown />}
+          sx={{
+            width: 240,
+            [`& .${selectClasses.indicator}`]: {
+              transition: "0.2s",
+              [`&.${selectClasses.expanded}`]: {
+                transform: "rotate(-180deg)",
+              },
             },
-          },
-        }}
-      ></Select>
+          }}
+        ></Select>
+      </div>
     </div>
   );
 }

@@ -3,28 +3,36 @@
 // @ts-nocheck
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import CloseButton from "../../assets/fi_x-circle.svg"; 
+import CloseButton from "../../assets/fi_x-circle.svg";
+import { useTransferPointsMutation } from "../../data/wallet";
+
 function PointTransfer({ setIsOpenTransferPointModal }) {
+  const [transferPoints] = useTransferPointsMutation();
   const formik = useFormik({
     initialValues: {
-      code: "",
-      amount: "",
-      description: "",
+      recipient_id: 0,
+      amount_in_dinar: 0,
     },
     validationSchema: Yup.object({
-      code: Yup.number()
-        .typeError("Code must be a number")
-        .required("Code is required"),
-      amount: Yup.number()
+      recipient_id: Yup.number()
+        .typeError("Recipient Id must be a number")
+        .required("Recipient Id is required"),
+      amount_in_dinar: Yup.number()
         .typeError("Amount must be a number")
         .positive("Amount must be at least 1")
         .required("Amount is required"),
-      description: Yup.string()
-        .min(5, "Description must be at least 5 characters")
-        .required("Description is required"),
     }),
-    onSubmit: (values) => console.log(values),
+    onSubmit: async (values) => {
+      try {
+        await transferPoints({ values }).unwrap();
+        formik.resetForm();
+        setIsOpenTransferPointModal(false);
+      } catch (error) {
+        console.error("Failed to transfer points:", error);
+      }
+    },
   });
+
   return (
     <>
       <div className="modal-overlay"></div>
@@ -38,42 +46,42 @@ function PointTransfer({ setIsOpenTransferPointModal }) {
           </div>
           <form onSubmit={formik.handleSubmit}>
             <div className="field-container">
-              <label htmlFor="code">Recipient</label>
+              <label htmlFor="recipient_id">Recipient</label>
               <input
                 placeholder="Add Your Recipient"
                 type="number"
-                name="code"
-                id="code"
+                name="recipient_id"
+                id="recipient_id"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.code}
+                value={formik.values.recipient_id}
               />
-              {formik.touched.code && formik.errors.code ? (
-                <div className="error">{formik.errors.code}</div>
+              {formik.touched.recipient_id && formik.errors.recipient_id ? (
+                <div className="error">{formik.errors.recipient_id}</div>
               ) : null}
             </div>
             <div className="field-container">
-              <label htmlFor="amount">Amount</label>
+              <label htmlFor="amount_in_dinar">Amount</label>
               <input
                 placeholder="Add Your Amount"
                 type="number"
-                name="amount"
-                id="amount"
+                name="amount_in_dinar"
+                id="amount_in_dinar"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.amount}
+                value={formik.values.amount_in_dinar}
               />
-              {formik.touched.amount && formik.errors.amount ? (
-                <div className="error">{formik.errors.amount}</div>
+              {formik.touched.amount_in_dinar && formik.errors.amount_in_dinar ? (
+                <div className="error">{formik.errors.amount_in_dinar}</div>
               ) : null}
             </div>
-
-            <button>Transfer Points</button>
+            <button type="submit">Transfer Points</button>
           </form>
         </div>
         <img
           className="close-button"
           src={CloseButton}
+          alt="Close transfer modal"
           onClick={() => setIsOpenTransferPointModal(false)}
         />
       </div>

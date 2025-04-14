@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import supabase from "../../shared/supabase/supabase";
+import supabase from "../../shared/store/services/supabase";
 
 const purchasedSessionsApi = createApi({
   reducerPath: "purchasedSessionsApi",
@@ -10,8 +10,8 @@ const purchasedSessionsApi = createApi({
       async queryFn() {
         const { data, error } = await supabase
           .from("recorded_live_sessions")
-          .select("*,subjects(*), live_sessions_grp(live_sessions,teacher_id)");  
-          if (error) console.error(error);
+          .select("*,subjects(*), live_sessions_grp(live_sessions,teacher_id)");
+        if (error) console.error(error);
         return { data };
       },
     }),

@@ -1,5 +1,12 @@
 import RedWallet from "../../assets/Group 184.svg";
-function FailedPayment() {
+
+import { useNavigate } from "react-router-dom";
+function FailedPayment({ onOpenFailedPayment }: any) {
+  const navigate = useNavigate();
+  function handleNavigate() {
+    onOpenFailedPayment(() => false);
+    navigate("/wallet");
+  }
   return (
     <>
       <div className="modal-overlay"></div>
@@ -13,8 +20,12 @@ function FailedPayment() {
           the access to your live session
         </span>
         <div className="buttons-flex">
-          <button className="cancel">Cancel</button>
-          <button className="fill-up">Fill up</button>
+          <button className="cancel" onClick={() => onOpenFailedPayment(false)}>
+            Cancel
+          </button>
+          <button className="fill-up" onClick={handleNavigate}>
+            Fill up
+          </button>
         </div>
       </div>
     </>

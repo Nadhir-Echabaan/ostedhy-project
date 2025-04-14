@@ -6,7 +6,6 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -15,6 +14,9 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+
+import { useGetAddPointsHistoryQuery } from "../../data/wallet";
+import { formatDate } from "../../helpers/formatDate";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -97,7 +99,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 function createData(
-  code: string,
+  code: number,
   method: string,
   amount: number,
   description: string,
@@ -107,33 +109,36 @@ function createData(
   return { code, method, amount, description, date, status };
 }
 
-const rows = [
-  createData("#--", "bank", 0, "--", "28/12/2020", "Approved"),
-  createData("#37560980", "bank transfer", 5, "qg", "18/03/2025", "Pending"),
-];
-
 export default function Transactions() {
+  const { data: addPointsHistory } = useGetAddPointsHistoryQuery({});
+  const rows = addPointsHistory?.map((item) =>
+    createData(item.code, item.method, item.amount, item.description, formatDate(item.date), item.status)
+  );
+  
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setPage(newPage);
   };
-
+  
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+  
+  if (!addPointsHistory) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <p className="table-title">Point History</p>
@@ -195,26 +200,28 @@ export default function Transactions() {
           </TableBody>
         </Table>
         {rows.length === 0 && <div className="empty_data">Empty</div>}
-        {rows.length !== 0 && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <TablePagination
-            className="pagination"
-            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            slotProps={{
-              select: {
-                inputProps: {
-                  "aria-label": "rows per page",
+        {rows.length !== 0 && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <TablePagination
+              className="pagination"
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              slotProps={{
+                select: {
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
                 },
-                native: true,
-              },
-            }}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            ActionsComponent={TablePaginationActions}
-          />
-        </Box>}
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              ActionsComponent={TablePaginationActions}
+            />
+          </Box>
+        )}
       </TableContainer>
     </>
   );
