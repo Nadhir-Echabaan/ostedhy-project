@@ -5,12 +5,14 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: rgba(60, 110, 225, 1);
 
   .login_feature_container {
     display: flex;
     flex-direction: column;
     gap: 22px;
-    width: 420px;
+    width:600px;
+    //height: 490px;
     padding: 32px 22px;
     background-color: #fff;
     border-radius: 22px;
@@ -26,9 +28,9 @@
       width: 100%;
       border: none;
       cursor: pointer;
-      border-radius: 6px;
+      border-radius: 13px;
       padding: 6px 12px;
-      background-color: $primary;
+      background-color: rgba(48, 193, 217, 1);
       color: $text-foreground;
       display: flex;
       justify-content: center;
@@ -40,5 +42,34 @@
         height: 24px;
       }
     }
+  }
+}
+.logo-and-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  p {
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+}
+.forget-password {
+  color: rgba(147, 127, 241, 1);
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: right;
+  cursor: pointer;
+}
+.navigate-sign-up {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(112, 124, 154, 1);
+  span {
+    color: rgba(147, 127, 241, 1);
+    text-decoration: underline;
+    font-weight: 600;
+    cursor: pointer;
   }
 }

@@ -1,52 +1,53 @@
-import { useAppDispatch } from '../../../shared/store'
-import { useFormik } from 'formik'
-import { useState } from 'react'
-import * as Yup from 'yup'
-import Input from '../../../shared/components/Input'
-import { useNavigate } from 'react-router-dom'
+import { useUserLoginMutation } from "../../data/auth";
+import { useFormik } from "formik";
+import { useState } from "react";
+import * as Yup from "yup";
+import Input from "../../../shared/components/Input";
+import { useNavigate } from "react-router-dom";
+import OstedhyLogo from "../../assets/Group 33862.svg";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const [submitting, setSubmitting] = useState<boolean>(false)
+  const navigate = useNavigate();
+
+  const [userLogin] = useUserLoginMutation(); 
+
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
-      email: 'admin@gmail.com',
-      password: '12345678',
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().required('Email is required'),
-      password: Yup.string().required('Password is required').min(6, 'Password is too short!'),
+      email: Yup.string().required("Email is required"),
+      password: Yup.string()
+        .required("Password is required")
+        .min(6, "Password is too short!"),
     }),
-    onSubmit: (values) => {
-      navigate('/todos')
-      // setSubmitting(true)
-      // dispatch(login(values))
-      //   .unwrap()
-      //   .then(() => {
-      //     console.log('welcome')
-      //   })
-      //   .catch((err) => {
-      //     alert(err?.message || 'something-went-wrong')
-      //   })
-      //   .finally(() => {
-      //     setSubmitting(false)
-      //   })
+    onSubmit: async (values) => {
+      const response = await userLogin({ email:values.email , password: values.password });
+      console.log(response);
+
+      if (response?.data?.user?.aud === "authenticated") {
+        navigate("/dashboard")
+      }
     },
-  })
+  });
+  
 
   return (
     <div className="login_feature">
       <form className="login_feature_container" onSubmit={formik.handleSubmit}>
-        <h1 className="title">Login</h1>
-
+        <div className="logo-and-title">
+          <img src={OstedhyLogo} />
+          <p>Login</p>
+        </div>
         <div className="login_feature_container_inputs">
           <Input
             name="email"
             formik={formik}
             variant="secondary"
-            placeholder="Enter your email"
+            placeholder="Enter your email or phone number"
             label="Email"
             required={true}
           />
@@ -60,14 +61,20 @@ const Login = () => {
             type="password"
             required={true}
           />
+          <span className="forget-password" onClick={() => navigate("/forget_password")}>Forget password?</span>
         </div>
 
-        <button type="submit" className="login_feature_container_btn" disabled={submitting}>
+        <button
+          type="submit"
+          className="login_feature_container_btn"
+          disabled={submitting}
+        >
           Login
         </button>
+        <p className="navigate-sign-up">Don't have an account ? <span onClick={() => navigate("/sign_up")}>Sign Up</span></p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

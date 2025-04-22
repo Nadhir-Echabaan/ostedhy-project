@@ -1,12 +1,12 @@
 import { DefaultPlayer as Video } from "react-html5video";
 import "react-html5video/dist/styles.css";
-function ReactVideoPlayer({recordedData}: { recordedData: any[] }) {  
+function ReactVideoPlayer({ recordedData }: { recordedData: any[] }) {
   return (
     <>
       <div className="video-container">
         <div className="video-header">
-          <span>Medium</span>
-          <p>{recordedData?.at(0)?.title}</p>
+          <span>{recordedData.level}</span>
+          {<p>{recordedData?.session_title}</p>}
         </div>
         <Video>
           <source

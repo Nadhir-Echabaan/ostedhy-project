@@ -19,7 +19,7 @@ import { CalcTimePassed } from "../../helpers/TimePassed.ts";
 
 import LiveSession from "../../components/LiveSession/LiveSession";
 import TableHeader from "../../components/TableHeader/TableHeader";
-import TableRow from "../../components/TableRow/TableRow";
+import TableRow from "../../components/TableRow/TableRow.tsx";
 import EmptyRow from "../../components/EmptyRow/EmptyRow";
 import Times from "../../components/Times/Times";
 import ArrowLeft from "../../assets/Arrow_Left.svg";
@@ -102,10 +102,7 @@ function Sessions() {
     useState(false);
   const [isOpenFailedPayment, setIsOpenFailedPayment] = useState(false);
 
-  if (isLoadingSessions) {
-    return <p>Loading...</p>;
-  }
-  const liveSessions = fetchedLiveSessions.map((liveSession) => ({
+  const liveSessions = fetchedLiveSessions?.map((liveSession) => ({
     ...liveSession,
     day: getDay(liveSession.start_at),
     date: getDate(liveSession.start_at),
@@ -114,6 +111,10 @@ function Sessions() {
     teacher: liveSession?.teachers?.fullname,
     subject_name: liveSession?.subjects?.subject_name,
   }));
+
+  if (isLoadingSessions) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>

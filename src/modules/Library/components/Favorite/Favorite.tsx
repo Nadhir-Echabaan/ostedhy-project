@@ -2,13 +2,15 @@ import { FaChevronDown } from "react-icons/fa6";
 import { FaChevronUp } from "react-icons/fa6";
 
 import { useState } from "react";
-import { useGetFavoriteSubjectsQuery } from "../../../Subjects/data/subjectsApi";
 import Subject from "../../../Subjects/components/Subject/Subject";
-import { useGetFavoriteChaptersQuery } from "../../../Subjects/data/getChapters";
 import ChapterCard from "../../../Subjects/components/ChapterCard/ChapterCard";
-import { useGetFavoriteRecordedSessionsQuery } from "../../../Subjects/data/recordedSessionsApi";
-import { formatRecordedData } from "../../../Subjects/helpers/formatRecordedData";
 import RecordedSessionCard from "../../../Subjects/components/RecordedSessionCard/RecordedSessionCard";
+
+import {
+  useGetFavoriteChaptersQuery,
+  useGetFavoriteSubjectsQuery,
+  useGetFavoriteRecordingsQuery,
+} from "../../data/library";
 
 function Favorite() {
   const [shevronUpSub, setShevronUpSub] = useState(true);
@@ -23,10 +25,12 @@ function Favorite() {
   function handleClickShevronRec() {
     setShevronRec((up) => !up);
   }
-  const { data: favoriteSubjects } = useGetFavoriteSubjectsQuery();
-  const { data: favoriteChapters } = useGetFavoriteChaptersQuery();
-  const { data: favoriteRecordeds } = useGetFavoriteRecordedSessionsQuery();
-  const favoriteRecordedSessions = formatRecordedData(favoriteRecordeds);
+  const { data: favoriteChapters, isLoading: isLoadingFavoriteChapters } =
+    useGetFavoriteChaptersQuery();
+  const { data: favoriteSubjects, isLoading: isLoadingFavoriteSubjects } =
+    useGetFavoriteSubjectsQuery();
+  const { data: favoriteRecordings, isLoading: isLoadingFavoriteRecordings } =
+    useGetFavoriteRecordingsQuery();
 
   return (
     <div className="">
@@ -88,10 +92,12 @@ function Favorite() {
             className={`icon ${shevronUpRec === true ? "hidden" : ""}`}
           />
         </div>
-        {shevronUpRec && !favoriteRecordedSessions?.length  && <div className="no-data">There is no recordings for the moment</div>}
-        {shevronUpRec && favoriteRecordedSessions?.length !== 0 && (
+        {shevronUpRec && !favoriteRecordings?.length && (
+          <div className="no-data">There is no recordings for the moment</div>
+        )}
+        {shevronUpRec && favoriteRecordings?.length !== 0 && (
           <main className="chapters">
-            {favoriteRecordedSessions?.map((favoriteRecordedSession) => (
+            {favoriteRecordings?.map((favoriteRecordedSession) => (
               <RecordedSessionCard recordedSession={favoriteRecordedSession} />
             ))}
           </main>

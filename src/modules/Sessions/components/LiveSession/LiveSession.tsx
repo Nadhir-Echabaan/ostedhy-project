@@ -1,13 +1,22 @@
 function LiveSession({ session, onOpenModal, onGroupeSessionsId }: any) {
-  const { session_title, teacher, subject_name, start, end, groupe_id } =
-    session;
+  const {
+    session_title,
+    teacher,
+    subject_name,
+    start,
+    end,
+    groupe_id,
+    bought,
+  } = session;
 
   return (
     <>
       <div
         onClick={() => {
-          onOpenModal(true);
-          onGroupeSessionsId(() => groupe_id);
+          if (!bought) {
+            onOpenModal(true);
+            onGroupeSessionsId(() => groupe_id);
+          }
         }}
         className={`live-session ${subject_name}`}
       >

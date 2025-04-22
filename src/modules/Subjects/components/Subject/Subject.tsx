@@ -11,52 +11,57 @@ import Star from "../../assets/Star 1.svg";
 
 import { useNavigate } from "react-router-dom";
 
-import { useGetChaptersQuery } from "../../data/getChapters";
-
-import { formatExpireDate } from "../../helpers/formatExpireDate";
+import { formatDate } from "../../../Wallet/helpers/formatDate";
 
 import {
-  useGetSubjectsQuery,
-  useUpdateSubjectMutation,
-} from "../../data/subjectsApi";
+  useGetChaptersBySubjectIdQuery,
+  useUpdateFavoriteSubjectMutation,
+  useBuySubjectMutation,
+} from "../../data/subjects";
+import { useGetUserPointsQuery } from "../../../Sessions/data/sessions";
 
 function Subject({ subjectData }) {
+  const { data: amount, isLoading: isLoadingAmount } = useGetUserPointsQuery(
+    {}
+  );
+  let userPoints = amount?.points;
+  const chapterPrice = 5;
+  const [updateFavoriteSubject] = useUpdateFavoriteSubjectMutation();
+  const [buySubject] = useBuySubjectMutation();
+
   const navigate = useNavigate();
-  if (!subjectData) return;
 
   const {
     subject_name,
     id: subjectId,
-    is_purchased,
-    expire_date,
+    bought,
+    expiration_date,
     favorite,
   } = subjectData;
 
-  const { refetch } = useGetSubjectsQuery();
-
-  const { data: chapters } = useGetChaptersQuery({ subjectId });
-  const [updateSubject] = useUpdateSubjectMutation();
-
-  const handleUpdate = async () => {
-    try {
-      await updateSubject({ subjectId, favorite });
-      refetch();
-    } catch (err) {
-      console.error("Update failed:", err);
-    }
-  };
-
-  if (!chapters?.length) return;
+  const { data: chapters, isLoading: isLoadingChapters } =
+    useGetChaptersBySubjectIdQuery(subjectId);
 
   const handleNavigate = () => {
     navigate(`/subjects/${subjectId}`);
   };
 
+  function handleFavoriteSubject() {
+    updateFavoriteSubject({ favorite, subjectId });
+  }
+
+  function handleBuySubject() {
+    if (userPoints - chapterPrice >= 0) {
+      buySubject({ subjectId, updatedPoints: userPoints - chapterPrice });
+    }
+  }
+  if (!subjectData || isLoadingAmount) return;
+
   return (
     <>
       <div className="position-relative">
-        <div className="subject" onClick={() => handleNavigate()}>
-          <div className="subject-image">
+        <div className="subject">
+          <div className="subject-image" onClick={() => handleNavigate()}>
             <span>{subject_name}</span>
           </div>
           <div className="subject-informations">
@@ -76,10 +81,11 @@ function Subject({ subjectData }) {
             </div>
             <div className="buy-btn">
               <button
-                className={`${is_purchased ? "btn is-purchased" : "btn"}`}
+                onClick={() => handleBuySubject()}
+                className={`${bought ? "btn is-purchased" : "btn"}`}
               >
-                {is_purchased
-                  ? `Expires on ${formatExpireDate(expire_date)}`
+                {bought
+                  ? `Expires on ${formatDate(expiration_date)}`
                   : "Buy 5PTS/Month"}
               </button>
             </div>
@@ -87,9 +93,7 @@ function Subject({ subjectData }) {
         </div>
         <div className="star-container">
           <img
-            onClick={() => {
-              handleUpdate();
-            }}
+            onClick={handleFavoriteSubject}
             src={favorite === true ? ColoredSubjectStar : UncoloredSubjectStar}
           />
         </div>

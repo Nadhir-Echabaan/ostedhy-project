@@ -5,8 +5,8 @@ import { HiOutlinePlay } from "react-icons/hi2";
 import Folder from "../../assets/subjectStatsIcons/folder.svg";
 import Clock from "../../assets/subjectStatsIcons/clock.svg";
 import Star from "../../assets/subjectStatsIcons/star.svg";
-function RecordOverview({recordedData}) {
-  
+
+function RecordOverview({ recordedData }: { recordedData: any[] }) {
   const [isClickedLessons, setClickedLessons] = useState(true);
   const [isClickedMagazines, setClickedMagazines] = useState(false);
   function handleClickButton() {
@@ -62,13 +62,15 @@ function RecordOverview({recordedData}) {
               </header>
               <div className="recorded-title">
                 <HiOutlinePlay className="play-icon" />
-                <p>{recordedData?.at(0)?.title}</p>
+                <p>{recordedData.session_title}tile</p>
               </div>
             </>
           )}
-          {
-            isClickedMagazines && <div className="no-magazines">There is no magazine for this chapter</div>
-          }
+          {isClickedMagazines && (
+            <div className="no-magazines">
+              There is no magazine for this chapter
+            </div>
+          )}
         </div>
       </main>
     </div>

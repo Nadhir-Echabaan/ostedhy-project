@@ -7,6 +7,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import Image from "../../assets/chapterImage.svg";
+
+import { useGetLastUploadedChaptersQuery } from "../../data/dashboard";
+import { formatDate } from "../../../Wallet/helpers/formatDate";
 function createData(
   image: string,
   title: string,
@@ -17,17 +20,23 @@ function createData(
   return { image, title, duration, date, teacher };
 }
 
-const rows = [
-  createData("./assets/chapters/1.png", "Chapter 1", 60, "18/03/2025", "Omar"),
-  createData("./assets/chapters/1.png", "Chapter 1", 60, "18/03/2025", "Omar"),
-  createData("./assets/chapters/1.png", "Chapter 1", 60, "18/03/2025", "Omar"),
-  createData("./assets/chapters/1.png", "Chapter 1", 60, "18/03/2025", "Omar"),
-  // createData("#37560980", "omar", "18/03/2025"),
-  // createData("#37560980", "omar", "18/03/2025"),
-  // createData("#37560980", "omar", "18/03/2025"),
-];
-
 export default function ChaptersTable() {
+  const { data: lastChapters, isLoading: loadingLastChapters } =
+    useGetLastUploadedChaptersQuery();
+  if (!lastChapters) return;
+  let rows = [];
+  if (lastChapters) {
+    rows = lastChapters?.map((item) =>
+      createData(
+        "./assets/chapters/1.png",
+        item.chapter_name,
+        item.duration,
+        formatDate(item.created_at),
+        item.teachers.fullname
+      )
+    );
+  }
+
   return (
     <>
       <TableContainer component={Paper} className="expire_soon_section">
@@ -55,13 +64,15 @@ export default function ChaptersTable() {
                     <div className="_flex-container">
                       <img src={Image} />
                       <div className="title_and_stats">
-                        <p>24-01-2023||séance 2 :maths</p>
-                        <span>2 videos . 2.7 Hours</span>
+                        <p>{row?.title}</p>
+                        <span>2 videos . {row?.duration} Hours</span>
                       </div>
                     </div>
                     <div className="date_and_teacher">
-                      <p>04/02/2024</p>
-                      <span>By <span className="teacher-name">Adouma</span></span>
+                      <p>{row?.date}</p>
+                      <span>
+                        By <span className="teacher-name">{row?.teacher}</span>
+                      </span>
                     </div>
                   </div>
                 </TableCell>

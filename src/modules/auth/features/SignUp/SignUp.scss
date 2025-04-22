@@ -1,0 +1,79 @@
+.sign-up-feature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(60, 110, 225, 1);
+  height: 100vh;
+  form {
+    width: 73rem;
+    background-color: #fff;
+    padding: 2rem 8rem;
+    border-radius: 25px;
+    label {
+      margin-bottom: 0px;
+    }
+  }
+  .logo-and-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    .ostedhy-logo {
+      height: 7.6rem;
+      width: 7.6rem;
+      justify-self: center;
+    }
+    p {
+      font-weight: 600;
+      font-size: 2.4rem;
+    }
+  }
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .inputs-flex-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    margin-bottom: 2.5rem;
+    .division-select {
+      width: 50%;
+    }
+  }
+}
+
+.sign-up-button {
+  background-color: rgba(48, 193, 217, 1);
+}
+.phone-number {
+  margin-bottom: 2.5rem;
+}
+.navigate-to-login {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(112, 124, 154, 1);
+  span {
+    color: rgba(147, 127, 241, 1);
+    text-decoration: underline;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+.password {
+  position: relative;
+}
+.eye-icon {
+  position: absolute;
+  left: 120rem;
+}
+.red-star {
+  color: red;
+}
+.error-message {
+  font-size: 1.3rem;
+}

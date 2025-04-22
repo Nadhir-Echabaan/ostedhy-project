@@ -18,31 +18,42 @@ import { calculateDurationInSec } from "../../helpers/calculateTotalHours";
 import { calculateSessionProgress } from "../../helpers/calculateSessionProgress";
 import { formatExpireDate } from "../../helpers/formatExpireDate";
 import { useUpdateRecordedSessionMutation } from "../../data/recordedSessionsApi";
+import {
+  useGetExpirationDateQuery,
+  useGetLevelQuery,
+  useUpdateFavoriteRecordedSessionMutation,
+} from "../../data/subjects";
+
+import { formatDate } from "../../../Wallet/helpers/formatDate";
 
 function RecordedSessionCard({ recordedSession }) {
-  const { subject, title, level, teacher, expire, id, favorite } =
-    recordedSession;
-  console.log(recordedSession);
-
-  const { subject_name, subjectId } = subject;
-
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(`/subjects/${subjectId}/${id}`);
-  };
+  const {
+    subjects,
+    session_title,
+    teachers,
+    id: sessionId,
+    favorite,
+    groupe_id: groupeId,
+  } = recordedSession;
 
-  const recordedSessionId = id;
-  const [updateRecordedSession] = useUpdateRecordedSessionMutation();
+  const { subject_name, id: subjectId, level_id: levelId } = subjects;
+  const { image_url, fullname } = teachers;
 
-  const handleUpdate = async () => {
-    try {
-      await updateRecordedSession({ recordedSessionId, favorite });
-    } catch (err) {
-      console.error("Update failed:", err);
-    } finally {
-      console.log(favorite);
-    }
-  };
+  const { data: fetchedLevel, isLoading } = useGetLevelQuery({ levelId });
+  const { data: fetchedExpirationDate, isLoading: b } =
+    useGetExpirationDateQuery({ groupeId });
+
+  const level = fetchedLevel?.at(0)?.level;
+  const expiration_date = fetchedExpirationDate?.at(0)?.expiration_date;
+
+  const [updateRecordedSession] = useUpdateFavoriteRecordedSessionMutation();
+  function handleFavoriteRecordedSession() {
+    updateRecordedSession({ favorite, sessionId });
+  }
+  function handleNavigate() {
+    navigate(`/subjects/${subjectId}/${sessionId}`);
+  }
   return (
     <div className="position-relative">
       <div onClick={() => handleNavigate()}>
@@ -52,8 +63,8 @@ function RecordedSessionCard({ recordedSession }) {
           </div>
           <div className="card-content">
             <div className="first-row-info">
-              <p>{title}</p>
-              <span>{level.level}</span>
+              <p>{session_title}</p>
+              <span>{level}</span>
             </div>
             <div className="second-row-info">
               <ProgressBar subjectProgress={20} />
@@ -70,13 +81,13 @@ function RecordedSessionCard({ recordedSession }) {
             <div className="fourth-row-info">
               <span>Teacher:</span>
               <div>
-                <img src={teacher.image_url} />
-                <p>{teacher.fullName}</p>
+                <img src={image_url} />
+                <p>{fullname}</p>
               </div>
             </div>
             <div className="fifth-row-info">
               <button className="is-purchased">
-                Expires on {formatExpireDate(expire)}
+                Expires on {formatDate(expiration_date)}
               </button>
             </div>
           </div>
@@ -84,7 +95,7 @@ function RecordedSessionCard({ recordedSession }) {
       </div>
       <div className="star-container">
         <img
-          onClick={() => handleUpdate()}
+          onClick={() => handleFavoriteRecordedSession()}
           src={favorite === true ? ColoredRecordedStar : UncoloredRecordedStar}
         />
       </div>

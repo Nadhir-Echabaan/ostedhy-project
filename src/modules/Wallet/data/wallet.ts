@@ -11,8 +11,8 @@ import { addMethod } from "yup";
 export const walletApi = api.injectEndpoints({
   endpoints: (builder) => ({
     addPoints: builder.mutation({
-      queryFn: async ({ values }) => {
-        const { data, error } = await supabase
+      queryFn: async ({ values, addedPoints }) => {
+        const { data: addPointsData, error: addPointError } = await supabase
           .from("add_points_history")
           .insert([
             {
@@ -22,16 +22,23 @@ export const walletApi = api.injectEndpoints({
               date: new Date().toISOString(),
             },
           ]);
-        if (error) {
-          return { error };
+        const { data: walletData, error: walletError } = await supabase
+          .from("wallet")
+          .update({ points: addedPoints })
+          .eq("id", 1);
+        if (walletError) {
+          return { walletError };
         }
-        return { data };
+        if (addPointError) {
+          return { addPointError };
+        }
+        return { data: { addPointsData, walletData } };
       },
-      invalidatesTags: [{ type: "add_points_history", id: "LIST" }],
+      invalidatesTags: [{ type: "points", id: "LIST" }],
     }),
     transferPoints: builder.mutation({
-      queryFn: async ({ values }) => {
-        const { data, error } = await supabase
+      queryFn: async ({ values, substractedPoints }) => {
+        const { data: transferData, error: transferError } = await supabase
           .from("transfer_points_history")
           .insert([
             {
@@ -40,12 +47,19 @@ export const walletApi = api.injectEndpoints({
               date: new Date().toISOString(),
             },
           ]);
-        if (error) {
-          return { error };
+        if (transferError) {
+          return { transferError };
         }
-        return { data };
+        const { data: walletData, error: walletError } = await supabase
+          .from("wallet")
+          .update({ points: substractedPoints })
+          .eq("id", 1);
+        if (walletError) {
+          return { walletError };
+        }
+        return { data: { walletData, transferData } };
       },
-      invalidatesTags: [{ type: "transfer_points_history", id: "LIST" }],
+      invalidatesTags: [{ type: "points", id: "LIST" }],
     }),
     getAddPointsHistory: builder.query({
       queryFn: async () => {
@@ -58,7 +72,7 @@ export const walletApi = api.injectEndpoints({
         }
         return { data };
       },
-      providesTags: [{ type: "add_points_history", id: "LIST" }],
+      providesTags: [{ type: "points", id: "LIST" }],
     }),
     getTransferHistory: builder.query({
       queryFn: async () => {
@@ -71,7 +85,20 @@ export const walletApi = api.injectEndpoints({
         }
         return { data };
       },
-      providesTags: [{ type: "transfer_points_history", id: "LIST" }],
+      providesTags: [{ type: "points", id: "LIST" }],
+    }),
+    getSubscriptionHistory: builder.query({
+      queryFn: async () => {
+        const { data, error } = await supabase
+          .from("subscription_history")
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (error) {
+          return { error };
+        }
+        return { data };
+      },
+      providesTags: [{ type: "subscription", id: "LIST" }],
     }),
   }),
 });
@@ -80,4 +107,5 @@ export const {
   useGetAddPointsHistoryQuery,
   useGetTransferHistoryQuery,
   useTransferPointsMutation,
+  useGetSubscriptionHistoryQuery,
 } = walletApi;

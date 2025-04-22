@@ -10,11 +10,9 @@ import ColoredChapterStar from "../../assets/coloredSubjectStar.svg";
 
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { calculateChapterProgress } from "../../helpers/calculateChapterProgress";
-import { formatExpireDate } from "../../helpers/formatExpireDate";
-import {
-  useGetChaptersQuery,
-  useUpdateChapterMutation,
-} from "../../data/getChapters";
+import { formatDate } from "../../../Wallet/helpers/formatDate";
+import { useUpdateFavoriteChapterMutation } from "../../data/subjects";
+
 function ChapterCard({ chapterData }) {
   const {
     chapter_name,
@@ -24,21 +22,12 @@ function ChapterCard({ chapterData }) {
     id: chapterId,
   } = chapterData;
 
-  const { subject_name, is_purchased, expire_date } = subjects;
-  const { fullName: teacher_name, image_url: teacher_image } = teachers;
-
-  const [updateChapter] = useUpdateChapterMutation();
-
-  
-
-  const handleUpdate = async () => {
-    try {
-      await updateChapter({ chapterId, favorite });
-    } catch (err) {
-      console.error("Update failed:", err);
-    } 
-  };
-
+  const { subject_name, bought, expiration_date } = subjects;
+  const { fullname: teacher_name, image_url: teacher_image } = teachers;
+  const [updateFavoriteChapter] = useUpdateFavoriteChapterMutation();
+  function handleFavoriteChapter() {
+    updateFavoriteChapter({ favorite, chapterId });
+  }
   return (
     <div className="one-chapter-card">
       <img src={cardImage} />
@@ -69,16 +58,16 @@ function ChapterCard({ chapterData }) {
         </div>
 
         <div className="fifth-row-info">
-          <button className={is_purchased ? "is-purchased" : ""}>
-            {is_purchased
-              ? `Expires on ${formatExpireDate(expire_date)}`
+          <button className={bought ? "is-purchased" : ""}>
+            {bought
+              ? `Expires on ${formatDate(expiration_date)}`
               : "Buy 5 PTS/Month"}
           </button>
         </div>
       </div>
       <div className="star-for-chapter">
         <img
-          onClick={() => handleUpdate()}
+          onClick={() => handleFavoriteChapter()}
           src={favorite === true ? ColoredChapterStar : UncoloredChapterStar}
         />
       </div>

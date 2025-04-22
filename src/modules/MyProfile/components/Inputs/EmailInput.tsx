@@ -1,5 +1,5 @@
 import Input from "@mui/joy/Input";
-function EmailInput() {
+function EmailInput({email}:any) {
   return (
     <div className="input-container">
       <label htmlFor="email" className="profile-section-label disabled-label">
@@ -8,7 +8,7 @@ function EmailInput() {
       <Input
         disabled
         className="profile-section-input"
-        value="nadhirchabane17@gmail.com"
+        value={email}
       />
     </div>
   );

@@ -3,20 +3,20 @@
 // @ts-nocheck
 import Filter from "../../components/Filter/Filter";
 import Subject from "../../components/Subject/Subject";
+import { useGetAllSubjectsQuery } from "../../data/subjects";
 
-import  { useGetSubjectsQuery } from "../../data/subjectsApi"; 
-import { useUpdateSubjectMutation } from "../../data/subjectsApi";
-
-import {subjectChapters } from "../../helpers/subjectChapters"; 
+import { subjectChapters } from "../../helpers/subjectChapters";
 
 function Subjects() {
-  const { data:subjects} = useGetSubjectsQuery(); 
-  if(!subjects?.length) return;
+  const { data:subjects, isLoading } = useGetAllSubjectsQuery();
+  if (isLoading) return; 
   return (
     <>
       <Filter />
-       <div className="subjects-grid">
-        {subjects.map((subject) => <Subject subjectData={subject} />)}
+      <div className="subjects-grid">
+        {subjects.map((subject) => (
+          <Subject subjectData={subject} />
+        ))}
       </div>
     </>
   );

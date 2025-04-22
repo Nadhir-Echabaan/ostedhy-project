@@ -4,8 +4,12 @@ import Video from "../../assets/statIcons/Video 1.svg";
 import Chart from "../../assets/statIcons/Chart.svg";
 
 import Overview from "../../assets/Bar-chart.svg"; 
+import { useGetPurchasedChaptersQuery, useGetRecordingsQuery } from "../../../Library/data/library";
 
 function OverView() {
+  const {data:recordings,isLoading:isLoadingRecordings} = useGetRecordingsQuery();
+  const {data:chapters,isLoadingChapters} = useGetPurchasedChaptersQuery(); 
+  if (!recordings || isLoadingRecordings || !chapters || isLoadingChapters) return;
   return (
     <div className="overview">
     <div className="overview-title">
@@ -28,7 +32,7 @@ function OverView() {
         </div>
         <div className="overview-text">
           <p>My Chapters</p>
-          <span>20h</span>
+          <span>{chapters.length}</span>
         </div>
       </div>
       <div className="overview-stat">
@@ -37,7 +41,7 @@ function OverView() {
         </div>
         <div className="overview-text">
           <p>Recorded Sessions</p>
-          <span>20h</span>
+          <span>{recordings.length}</span>
         </div>
       </div>
       <div className="overview-stat">

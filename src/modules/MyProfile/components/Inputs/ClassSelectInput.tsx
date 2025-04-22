@@ -1,6 +1,7 @@
 import Select, { selectClasses } from "@mui/joy/Select";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-function ClassSelectInput() {
+function ClassSelectInput({division}:any) {
+  
   return (
     <div className="input-container">
       <label
@@ -12,7 +13,7 @@ function ClassSelectInput() {
       <div className="select">
         <Select
           disabled
-          placeholder="Bac sciences expérimentales"
+          placeholder={division}
           indicator={<KeyboardArrowDown />}
           sx={{
             width: 240,

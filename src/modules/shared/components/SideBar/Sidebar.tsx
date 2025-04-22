@@ -10,10 +10,16 @@ import OffersLogo from "../../assets/NavIcons/Star_rectangle.svg"
 import WalletLogo from "../../assets/NavIcons/Wallet.svg"
 import ProfileLogo from "../../assets/NavIcons/User_rectangle_1.svg"
 
+import { useNavigate } from "react-router-dom";
+
 function SideBar () {
+  const navigate = useNavigate(); 
+  function handleNavigateDashboard() {
+    navigate("/dashboard")
+  }
   return (
     <aside className="side-bar">
-      <img src={LogoOstedhy} />
+      <img src={LogoOstedhy} onClick={() => handleNavigateDashboard()}/>
       <ul className="MainNav">
         <li>
           <NavLink className="NavLink" to="/dashboard">

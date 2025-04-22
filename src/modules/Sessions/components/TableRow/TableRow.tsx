@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import LiveSession from "../LiveSession/LiveSession";
 function TableRow({
   sessions,
@@ -6,13 +9,13 @@ function TableRow({
   onOpenModal,
   onGroupeSessionsId,
 }) {
-  const Monday = sessions.filter((session) => session.day === "Monday");
-  const Tuesday = sessions.filter((session) => session.day === "Tuesday");
-  const Wednesday = sessions.filter((session) => session.day === "Wednesday");
-  const Thursday = sessions.filter((session) => session.day === "Thursday");
-  const Friday = sessions.filter((session) => session.day === "Friday");
-  const Saturday = sessions.filter((session) => session.day === "Saturday");
-  const Sunday = sessions.filter((session) => session.day === "Sunday");
+  const Monday = sessions?.filter((session) => session.day === "Monday");
+  const Tuesday = sessions?.filter((session) => session.day === "Tuesday");
+  const Wednesday = sessions?.filter((session) => session.day === "Wednesday");
+  const Thursday = sessions?.filter((session) => session.day === "Thursday");
+  const Friday = sessions?.filter((session) => session.day === "Friday");
+  const Saturday = sessions?.filter((session) => session.day === "Saturday");
+  const Sunday = sessions?.filter((session) => session.day === "Sunday");
   return (
     <tr>
       <td>

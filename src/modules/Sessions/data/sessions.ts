@@ -2,9 +2,12 @@
 // @ts-ignore
 // @ts-nocheck
 
-import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
+
 import { api } from "../../shared/store/services/api";
 import supabase from "../../shared/store/services/supabase";
+
+const shortId = uuidv4().slice(0, 6);
 
 export const sessionsApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -38,7 +41,8 @@ export const sessionsApi = api.injectEndpoints({
         const { data, error } = await supabase
           .from("live_sessions")
           .select("*")
-          .eq("groupe_id", groupeSessionsId.groupeSessionsId);
+          .eq("groupe_id", groupeSessionsId.groupeSessionsId)
+          .order("id", { ascending: true });
 
         if (error) return { error };
 
@@ -57,32 +61,78 @@ export const sessionsApi = api.injectEndpoints({
 
         return { data };
       },
-      providesTags: [{ type: "userPoints", id: "LIST" }],
+      providesTags: [{ type: "points", id: "LIST" }],
     }),
     buyLiveSessionsGroupe: builder.mutation({
-      queryFn: async ({ updatedPoints }) => {
-        const { data: walletData, error: walletError } = await supabase
-          .from("wallet")
-          .update({ points: updatedPoints })
-          .eq("id", 1);
-        if (walletError) {
-          return { walletError };
-        }
-        const { data: groupsData, error: groupsError } = await supabase
+      queryFn: async ({ groupeSessionsId, with_records }) => {
+        const { data, error } = await supabase
           .from("live_session_groups")
           .update({
             bought: true,
-            expiration_date: new Date(),
-            with_records: true,
+            expiration_date: new Date(
+              Date.now() + 30 * 24 * 60 * 60 * 1000
+            ).toISOString(),
+            with_records: with_records,
           })
-          .eq("id", 1);
+          .eq("id", groupeSessionsId);
 
-        if (groupsError) {
-          return { groupsError };
+        if (error) {
+          return { error };
         }
-        return { data: { walletData, groupsData } };
+        return { data };
       },
-      invalidatesTags: [{ type: "userPoints", id: "LIST" }],
+      invalidatesTags: [{ type: "live_sessions_groupe", id: "LIST" }],
+    }),
+    updateBoughtLiveSessions: builder.mutation({
+      queryFn: async ({ groupeSessionsId, with_records }) => {
+        const { data: liveSessionsData, error: liveSessionsError } =
+          await supabase
+            .from("live_sessions")
+            .update({
+              bought: true,
+              with_records: with_records,
+              expiration_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            })
+            .eq("groupe_id", groupeSessionsId);
+
+        if (liveSessionsError) {
+          return { liveSessionsError };
+        }
+        return { data: liveSessionsData };
+      },
+      invalidatesTags: [{ type: "live_sessions", id: "LIST" }],
+    }),
+    updateWalletPoints: builder.mutation({
+      queryFn: async ({ updatedPoints }) => {
+        const { data, error } = await supabase
+          .from("wallet")
+          .update({ points: updatedPoints })
+          .eq("id", 1);
+        if (error) {
+          return { error };
+        }
+        return { data };
+      },
+      invalidatesTags: [{ type: "points", id: "LIST" }],
+    }),
+    liveSessionsSubscription: builder.mutation({
+      queryFn: async ({}) => {
+        const { data, error } = await supabase
+          .from("subscription_history")
+          .insert([
+            {
+              code: `#${shortId}`,
+              amount_in_dinar: 1500,
+              refund: 0,
+              date: new Date().toISOString(),
+            },
+          ]);
+        if (error) {
+          return { error };
+        }
+        return { data };
+      },
+      invalidatesTags: [{ type: "subscription", id: "LIST" }],
     }),
   }),
 });
@@ -91,5 +141,9 @@ export const {
   useGetLiveSessionsGroupeQuery,
   useGetRelatedLiveSessionsQuery,
   useGetUserPointsQuery,
+
   useBuyLiveSessionsGroupeMutation,
+  useUpdateWalletPointsMutation,
+  useUpdateBoughtLiveSessionsMutation,
+  useLiveSessionsSubscriptionMutation,
 } = sessionsApi;

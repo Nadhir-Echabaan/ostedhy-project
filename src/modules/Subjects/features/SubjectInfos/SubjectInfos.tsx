@@ -17,26 +17,35 @@ import Download from "../../assets/subjectStatsIcons/download.svg";
 import UncoloredLibraryStar from "../../assets/subject-star.svg";
 import ColoredLibraryStar from "../../assets/coloredSubjectStar.svg";
 
-import { useGetChaptersQuery } from "../../data/getChapters";
-import { useGetSubjectQuery } from "../../data/getSubject";
-
 import { calculateNumTeachers } from "../../helpers/calculateNumTeachers";
-import { useGetRecordedSessionsQuery } from "../../data/recordedSessionsApi";
 import RecordedSessionCard from "../../components/RecordedSessionCard/RecordedSessionCard";
 
 import NoContent from "../../components/RecordedSessionCard/NoContent";
 import { formatExpireDate } from "../../helpers/formatExpireDate";
 import { formatRecordedData } from "../../helpers/formatRecordedData";
 
+import { useGetSubjectByIdQuery } from "../../data/subjects";
+
+import {
+  useGetChaptersBySubjectIdQuery,
+  useGetRecordedSessionsBySubjectIdQuery,
+} from "../../data/subjects";
+
+import { formatDate } from "../../../Wallet/helpers/formatDate";
 function SubjectInfos() {
   const { id } = useParams();
   const subjectId = Number(id);
 
-  const { data: chapters } = useGetChaptersQuery({ subjectId });
-  const { data: subject } = useGetSubjectQuery({ subjectId });
-  const { data: recordedSessions } = useGetRecordedSessionsQuery({ subjectId });
-
-  
+  // the queries
+  const { data: chapters, isLoading: isLoadingChapters } =
+    useGetChaptersBySubjectIdQuery({ subjectId });
+  const { data: recordedSessions, isLoading: isLoadingRecordedSessions } =
+    useGetRecordedSessionsBySubjectIdQuery({
+      subjectId,
+    });
+  const { data: fetchedSubject, isLoading: isLoadingFecthedSubject } =
+    useGetSubjectByIdQuery({ subjectId });
+  console.log(fetchedSubject);
 
   const [isClickedChapter, setIsClickedChapter] = useState(true);
   const [isClickedSession, setIsClickedSubject] = useState(false);
@@ -49,29 +58,28 @@ function SubjectInfos() {
     setIsClickedChapter((isClickedChapter) => !isClickedChapter);
     setIsClickedSubject((isClickedSubject) => !isClickedSubject);
   }
-  
-  
-  const recordedLiveSessions = formatRecordedData(recordedSessions,subject); 
-  if (!chapters || !subject || !recordedSessions) return;
-  const teachers = calculateNumTeachers(chapters ?? []);
-  const { is_purchased, expire_date, favorite } = subject;
-  
+  if (isLoadingChapters || isLoadingFecthedSubject || isLoadingRecordedSessions)
+    return;
+  const teachers = chapters.map((chapter) => chapter.teacher_id);
+  const teachers_number = teachers.filter(
+    (teacher_id) => teacher_id !== teachers.at(0)
+  ).length;
+  const { bought, favorite, subject_name, expiration_date } =
+    fetchedSubject?.at(0);
 
   return (
     <>
       <div className="one-subject-header">
         <div className="right-side-informations">
           <div className="subject-img">
-            <p>{subject.subject_name}</p>
+            <p>{subject_name}</p>
             <div>
               <img src={favorite ? ColoredLibraryStar : UncoloredLibraryStar} />
             </div>
           </div>
           <div className="right-side-subject-infos">
             <p className="subject-name">subject name</p>
-            <p className="subject-and-class">
-              {subject.subject_name} bac sciences
-            </p>
+            <p className="subject-and-class">{subject_name} bac sciences</p>
             <div className="progress-container">
               <ProgressBar subjectProgress={20} />
               <span className="percentage">20%</span>
@@ -89,7 +97,7 @@ function SubjectInfos() {
               <div className="unit-stat">
                 <img src={Folder} />
                 <p>Chapters: </p>
-                <span>{chapters.length} chapter</span>
+                <span>{chapters?.length} chapter</span>
               </div>
               <div className="unit-stat">
                 <img src={Play} />
@@ -101,7 +109,7 @@ function SubjectInfos() {
               <div className="unit-stat">
                 <img src={User} />
                 <p>Created By: </p>
-                <span>{teachers} Teachers</span>
+                <span>{teachers_number + 1} Teachers</span>
               </div>
               <div className="unit-stat">
                 <img src={Clock} />
@@ -115,10 +123,10 @@ function SubjectInfos() {
               </div>
             </div>
           </div>
-          {is_purchased ? (
+          {bought ? (
             <div className="payment-options isBought">
               <p>Subscription Duration</p>
-              <button>Expires on {formatExpireDate(expire_date)}</button>
+              <button>Expires on {formatDate(expiration_date)}</button>
             </div>
           ) : (
             <div className="payment-options">
@@ -159,12 +167,12 @@ function SubjectInfos() {
         {isClickedChapter &&
           chapters.map((chapter) => <ChapterCard chapterData={chapter} />)}
         {isClickedSession &&
-          recordedLiveSessions &&
-          recordedLiveSessions.map((recordedLiveSession: any) => (
-            <RecordedSessionCard recordedSession={recordedLiveSession} />
+          recordedSessions &&
+          recordedSessions.map((recordedSession: any) => (
+            <RecordedSessionCard recordedSession={recordedSession} />
           ))}
       </main>
-      {isClickedSession && recordedLiveSessions.length === 0 && <NoContent />}
+      {isClickedSession && recordedSessions.length === 0 && <NoContent />}
     </>
   );
 }

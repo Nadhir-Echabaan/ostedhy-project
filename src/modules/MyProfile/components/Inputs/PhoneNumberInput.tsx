@@ -1,5 +1,5 @@
 import Input from "@mui/joy/Input";
-function PhoneNumber() {
+function PhoneNumber({ phoneNumber }: any) {
   return (
     <div className="input-container">
       <label
@@ -8,13 +8,8 @@ function PhoneNumber() {
       >
         Phone Number
       </label>
-      <Input
-        disabled
-        value="+234 803 123 4567"
-        className="profile-section-input"
-      />
+      <Input disabled value={phoneNumber} className="profile-section-input" />
     </div>
   );
 }
-
 export default PhoneNumber;

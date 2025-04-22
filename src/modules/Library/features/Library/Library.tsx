@@ -8,29 +8,29 @@ import RecordedSessionCard from "../../../Subjects/components/RecordedSessionCar
 import ChapterCard from "../../../Subjects/components/ChapterCard/ChapterCard";
 import Subject from "../../../Subjects/components/Subject/Subject";
 import LibraryHeader from "../../components/LibraryHeader/LibraryHeader";
-import { useGetPurchasedChaptersQuery } from "../../data/purchasedChaptersApi";
-import { useGetPurchasedSessionsQuery } from "../../data/purchasedSessions";
-import { useGetPurchasedSubjectsQuery } from "../../data/purchasedSubjectsApi";
-import { useGetTeacherQuery } from "../../../Subjects/data/getTeacher";
-import { useGetLevelQuery } from "../../../Subjects/data/getLevel";
+
 import { formatRecordedData } from "../../../Subjects/helpers/formatRecordedData";
 import Favorite from "../../components/Favorite/Favorite";
+import {
+  useGetFavoriteChaptersQuery,
+  useGetPurchasedSubjectsQuery,
+} from "../../data/library";
+import { useGetPurchasedChaptersQuery } from "../../data/library";
+import { useGetRecordingsQuery } from "../../data/library";
 
 function Library() {
   const [activeTab, setActiveTab] = useState("subjects");
 
-  const { data: purchasedSubjects } = useGetPurchasedSubjectsQuery();
-  const { data: purchasedSessions } = useGetPurchasedSessionsQuery();
-  const { data } = useGetPurchasedChaptersQuery();
+  const { data: purchasedSubjects, isLoading: isLoadingPurchasedSubjects } =
+    useGetPurchasedSubjectsQuery();
+  const { data: purchasedChapters, isLoading: isLoadingPurchasedChapters } =
+    useGetPurchasedChaptersQuery();
+  const { data: recordings, isLoading: isLoadingRecordings } =
+    useGetRecordingsQuery();
+  const { data: favoriteChapters, isLoading: isLoadingFavoriteChapters } =
+    useGetFavoriteChaptersQuery();
 
-  const subject_name = purchasedSessions?.at(0).subjects.subject_name;
-  const subjectId = purchasedSessions?.at(0)?.subjects?.id;
-  const subject = { subject_name, subjectId};
-  const recordedLiveSessions = formatRecordedData(purchasedSessions, subject);
-  const purchasedChapters = data?.filter(
-    (chapter) => chapter?.subjects?.is_purchased === true
-  );
-  if (!purchasedSubjects || !purchasedSessions || !data) return;
+  if (!purchasedSubjects) return;
   return (
     <>
       <LibraryHeader activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -39,7 +39,7 @@ function Library() {
           {purchasedSubjects.map((subject) => (
             <Subject subjectData={subject} />
           ))}
-        </div>  
+        </div>
       )}
       {activeTab === "chapters" && (
         <main className="chapters">
@@ -50,13 +50,12 @@ function Library() {
       )}
       {activeTab === "recording" && (
         <main className="chapters">
-          {recordedLiveSessions.map((recordedLiveSession) => (
+          {recordings.map((recordedLiveSession) => (
             <RecordedSessionCard recordedSession={recordedLiveSession} />
           ))}
         </main>
       )}
       {activeTab === "favorite" && <Favorite />}
-
     </>
   );
 }

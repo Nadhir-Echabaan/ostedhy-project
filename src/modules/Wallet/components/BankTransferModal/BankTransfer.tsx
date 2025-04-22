@@ -1,11 +1,19 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CloseButton from "../../assets/fi_x-circle.svg";
-import { useAddPointsMutation, useGetAddPointsHistoryQuery } from "../../data/wallet";
+import { useAddPointsMutation } from "../../data/wallet";
+import { useGetUserPointsQuery } from "../../../Sessions/data/sessions";
 
-function BankTransfer({ setIsOpenBankTransferModal }: { setIsOpenBankTransferModal: React.Dispatch<React.SetStateAction<boolean>> }) {
+function BankTransfer({
+  setIsOpenBankTransferModal,
+}: {
+  setIsOpenBankTransferModal: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [addPoints] = useAddPointsMutation();
+  const { data: amount, isLoading } = useGetUserPointsQuery({});
   
+
+  let userPoints = amount.points;
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +35,10 @@ function BankTransfer({ setIsOpenBankTransferModal }: { setIsOpenBankTransferMod
     }),
     onSubmit: async (values) => {
       try {
-        await addPoints({ values }).unwrap();
+        await addPoints({
+          values,
+          addedPoints: values.amount + userPoints,
+        }).unwrap();
         formik.resetForm();
         setIsOpenBankTransferModal(false);
       } catch (error) {
@@ -35,7 +46,7 @@ function BankTransfer({ setIsOpenBankTransferModal }: { setIsOpenBankTransferMod
       }
     },
   });
-
+  if (isLoading) return;
   return (
     <>
       <div className="modal-overlay"></div>

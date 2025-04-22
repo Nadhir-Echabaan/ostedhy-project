@@ -4,15 +4,23 @@ import {
   useGetLiveSessionsGroupeQuery,
   useGetRelatedLiveSessionsQuery,
   useGetUserPointsQuery,
+  useLiveSessionsSubscriptionMutation,
+  useUpdateBoughtLiveSessionsMutation,
+  useUpdateWalletPointsMutation,
 } from "../../data/sessions";
 import { markSoonestSession } from "../../helpers/markSoonestSession";
 import LiveSessionItem from "./LiveSessionItem";
+import { useState } from "react";
 function SessionsInfo({
   onOpenModal,
   groupeSessionsId,
   onOpenSuccessfullPayment,
   onOpenFailedPayment,
 }: any) {
+  const [with_records, setWithRecords] = useState(false);
+
+  const [liveSessionsSubscription] = useLiveSessionsSubscriptionMutation({});
+
   const { data: relatedLiveSessions, isLoading: isLoadingRelatedLiveSessions } =
     useGetRelatedLiveSessionsQuery({ groupeSessionsId });
 
@@ -20,7 +28,14 @@ function SessionsInfo({
     useGetLiveSessionsGroupeQuery({ groupeSessionsId });
 
   const { data: amount, isLoading } = useGetUserPointsQuery({});
-  const [buyLiveSessionsGroupe] = useBuyLiveSessionsGroupeMutation();
+  const [updateWalletPoints] = useUpdateWalletPointsMutation({});
+  const [buyLiveSessionsGroupe] = useBuyLiveSessionsGroupeMutation({
+    groupeSessionsId,
+  });
+  const [updateBoughtLiveSessions] = useUpdateBoughtLiveSessionsMutation({
+    groupeSessionsId,
+  });
+
   if (
     isLoading ||
     isLoadingRelatedLiveSessions ||
@@ -39,10 +54,15 @@ function SessionsInfo({
 
   function handleBuyLiveSessionsGroupe() {
     if (userPoints >= liveSessionsPrice) {
-      const updatedPoints = userPoints - liveSessionsPrice;
       onOpenModal(() => false);
-      buyLiveSessionsGroupe({ updatedPoints });
+      updateWalletPoints({
+        updatedPoints: userPoints - liveSessionsPrice,
+      });
+      buyLiveSessionsGroupe({ groupeSessionsId, with_records });
+      updateBoughtLiveSessions({ groupeSessionsId, with_records });
+      liveSessionsSubscription({});
       onOpenSuccessfullPayment(() => true);
+      setWithRecords(false);
     } else {
       onOpenModal(() => false);
       onOpenFailedPayment(() => true);
@@ -87,7 +107,11 @@ function SessionsInfo({
         <div className="purchase">
           <div>
             <div className="with-records">
-              <input type="checkbox" id="record" />
+              <input
+                type="checkbox"
+                id="record"
+                onClick={() => setWithRecords(!with_records)}
+              />
               <p>Buy Live Session Records</p>
             </div>
             <p className="extra-pricing">+5.00 TND/Month</p>

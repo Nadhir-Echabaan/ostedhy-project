@@ -15,6 +15,10 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 
+import { useGetSubscriptionHistoryQuery } from "../../data/wallet";
+
+import { formatDate } from "../../helpers/formatDate";
+
 interface TablePaginationActionsProps {
   count: number;
   page: number;
@@ -104,33 +108,33 @@ function createData(
   return { code, amount, date, refund };
 }
 
-const rows = [
-  createData("fgege", 7,"14/01/1990", null),
-  createData("fgege", 7,"10/01/2000", null),
-];
 
 export default function Subscription() {
+  const { data:subscriptionHistory , isLoading:isLoadingSubscriptionHistory} = useGetSubscriptionHistoryQuery({});
+  
+  let rows = subscriptionHistory?.map((item) => createData(item.code,item.amount_in_dinar,formatDate(item.date),item.refund));
+  if (!subscriptionHistory || isLoadingSubscriptionHistory) rows = []; 
+  
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
     setPage(newPage);
   };
-
+  
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
   return (
     <>
       <p className="table-title">Subscription History</p>
@@ -154,7 +158,7 @@ export default function Subscription() {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
             ).map((row) => (
               <TableRow key={row.code}>
@@ -165,7 +169,7 @@ export default function Subscription() {
                   {row.amount}
                 </TableCell>
                 <TableCell style={{ width: 180 }} align="left">
-                  {row.amount}
+                  {row.refund}
                 </TableCell>
                 <TableCell style={{ width: 180 }} align="left">
                   {row.date}
@@ -179,12 +183,12 @@ export default function Subscription() {
             )}
           </TableBody>
         </Table>
-        {rows.length === 0 && <div className="empty_data">Empty</div>}
-        {rows.length !== 0 && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        {rows?.length === 0 && <div className="empty_data">Empty</div>}
+        {rows?.length !== 0 && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <TablePagination
             className="pagination"
             rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-            count={rows.length}
+            count={rows?.length}
             rowsPerPage={rowsPerPage}
             page={page}
             slotProps={{

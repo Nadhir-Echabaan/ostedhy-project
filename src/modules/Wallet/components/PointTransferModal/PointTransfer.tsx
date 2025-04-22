@@ -5,13 +5,20 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import CloseButton from "../../assets/fi_x-circle.svg";
 import { useTransferPointsMutation } from "../../data/wallet";
+import { useGetUserPointsQuery } from "../../../Sessions/data/sessions";
 
 function PointTransfer({ setIsOpenTransferPointModal }) {
+  const { data: amount, isLoading } = useGetUserPointsQuery({});
+  if (isLoading || !amount) {
+    return <p>Loading...</p>;
+  }
+
+  let userPoints = amount.points;
   const [transferPoints] = useTransferPointsMutation();
   const formik = useFormik({
     initialValues: {
-      recipient_id: 0,
-      amount_in_dinar: 0,
+      recipient_id: null,
+      amount_in_dinar: null,
     },
     validationSchema: Yup.object({
       recipient_id: Yup.number()
@@ -19,16 +26,25 @@ function PointTransfer({ setIsOpenTransferPointModal }) {
         .required("Recipient Id is required"),
       amount_in_dinar: Yup.number()
         .typeError("Amount must be a number")
-        .positive("Amount must be at least 1")
+        .positive("Amount must be greater than 0")
         .required("Amount is required"),
     }),
     onSubmit: async (values) => {
-      try {
-        await transferPoints({ values }).unwrap();
-        formik.resetForm();
+      if (userPoints - values.amount_in_dinar >= 0) {
+        console.log(userPoints - values.amount_in_dinar);
+
+        try {
+          await transferPoints({
+            values,
+            substractedPoints: userPoints - values.amount_in_dinar,
+          }).unwrap();
+          formik.resetForm();
+          setIsOpenTransferPointModal(false);
+        } catch (error) {
+          console.error("Failed to transfer points:", error);
+        }
+      } else {
         setIsOpenTransferPointModal(false);
-      } catch (error) {
-        console.error("Failed to transfer points:", error);
       }
     },
   });
@@ -71,7 +87,8 @@ function PointTransfer({ setIsOpenTransferPointModal }) {
                 onBlur={formik.handleBlur}
                 value={formik.values.amount_in_dinar}
               />
-              {formik.touched.amount_in_dinar && formik.errors.amount_in_dinar ? (
+              {formik.touched.amount_in_dinar &&
+              formik.errors.amount_in_dinar ? (
                 <div className="error">{formik.errors.amount_in_dinar}</div>
               ) : null}
             </div>

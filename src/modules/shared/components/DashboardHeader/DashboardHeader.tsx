@@ -5,20 +5,28 @@ import UserAvatarIcon from "../../assets/NavIcons/Ellipse 1.svg";
 
 import { useGetUserPointsQuery } from "../../../Sessions/data/sessions.ts";
 
+import { useNavigate } from "react-router-dom";
+
 function DashboardHeader() {
   let section = window.location.pathname.split("/").at(1);
-  if (section === "sessions") section = "Live Session"; 
-  if (section === "dashboard") section = "Dashboard"; 
-  if (section === "subjects") section = "Subjects"; 
-  if (section === "library") section = "My Library"; 
-  if (section === "offers") section = "Offers"; 
-  if (section === "wallet") section = "Wallet"; 
-  if (section === "profil") section = "Profil"; 
+  if (section === "sessions") section = "Live Session";
+  if (section === "dashboard") section = "Dashboard";
+  if (section === "subjects") section = "Subjects";
+  if (section === "library") section = "My Library";
+  if (section === "offers") section = "Offers";
+  if (section === "wallet") section = "Wallet";
+  if (section === "profil") section = "Profil";
+
+  const navigate = useNavigate(); 
+  function handleNavigateWallet() {
+    navigate("/wallet"); 
+  }
+  function handleNavigateProfil() {
+    navigate("/profil"); 
+  }
 
   const { data: amount, isLoading } = useGetUserPointsQuery({});
-  if (isLoading || !amount) {
-    return <p>Loading...</p>;
-  }
+  if (isLoading || !amount) return;
   let userPoints = amount.points;
   return (
     <header className="header">
@@ -28,20 +36,20 @@ function DashboardHeader() {
           <img src={SearchIcon} />
           <input
             type="input"
-            placeholder="Search for subjects , vedios and chapters"
+            placeholder="Search for subjects , videos and chapters"
           />
         </div>
       </div>
       <div className="left-side">
         <img className="notification" src={NotifIcon} />
-        <div className="wallet">
+        <div className="wallet" onClick={() => handleNavigateWallet()}>
           <img src={WalletIcon} />
           <div className="balance">
             <p>Votre Solde</p>
             <span>{userPoints} PTS</span>
           </div>
         </div>
-        <img src={UserAvatarIcon} className="user-avatar" />
+        <img src={UserAvatarIcon} className="user-avatar" onClick={()=> handleNavigateProfil()} />
       </div>
     </header>
   );
