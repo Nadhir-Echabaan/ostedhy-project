@@ -32,7 +32,7 @@ function DivisionSelect({
 
     "Bac sc expérimentales",
     "Bac techniques",
-    "Bac économiques et gestion",
+    "Bac éco",
     "Bac lettres",
     "Bac informatique",
     "Bac mathématiques",
@@ -54,14 +54,14 @@ function DivisionSelect({
         <label htmlFor="division">
           Division <span className="red-star">*</span>
         </label>
-        <div className="select division">
+        <div className="select">
           <Select
             id="division"
             name="division"
             placeholder="Select division"
             indicator={<KeyboardArrowDown />}
             onChange={handleSelectChange}
-            value={value || ""}
+            value={value}
             sx={{
               width: 240,
               [`& .${selectClasses.indicator}`]: {

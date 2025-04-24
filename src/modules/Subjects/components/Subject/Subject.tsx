@@ -37,6 +37,8 @@ function Subject({ subjectData }) {
     bought,
     expiration_date,
     favorite,
+    reviews,
+    duration,
   } = subjectData;
 
   const { data: chapters, isLoading: isLoadingChapters } =
@@ -72,11 +74,11 @@ function Subject({ subjectData }) {
             </div>
             <div className="subject-stats">
               <p>{chapters?.length} chapters</p>
-              <p>90.5 Hours</p>
+              <p>{duration} Hours</p>
               <p className="reviews">
                 <img src={Star} />
 
-                <span>4.8 (reviews)</span>
+                <span>{reviews} (reviews)</span>
               </p>
             </div>
             <div className="buy-btn">

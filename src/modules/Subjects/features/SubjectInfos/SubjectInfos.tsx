@@ -24,7 +24,10 @@ import NoContent from "../../components/RecordedSessionCard/NoContent";
 import { formatExpireDate } from "../../helpers/formatExpireDate";
 import { formatRecordedData } from "../../helpers/formatRecordedData";
 
-import { useGetSubjectByIdQuery } from "../../data/subjects";
+import {
+  useGetSubjectByIdQuery,
+  useUpdateFavoriteSubjectMutation,
+} from "../../data/subjects";
 
 import {
   useGetChaptersBySubjectIdQuery,
@@ -35,6 +38,7 @@ import { formatDate } from "../../../Wallet/helpers/formatDate";
 function SubjectInfos() {
   const { id } = useParams();
   const subjectId = Number(id);
+  const [updateFavoriteSubject] = useUpdateFavoriteSubjectMutation();
 
   // the queries
   const { data: chapters, isLoading: isLoadingChapters } =
@@ -45,7 +49,6 @@ function SubjectInfos() {
     });
   const { data: fetchedSubject, isLoading: isLoadingFecthedSubject } =
     useGetSubjectByIdQuery({ subjectId });
-  console.log(fetchedSubject);
 
   const [isClickedChapter, setIsClickedChapter] = useState(true);
   const [isClickedSession, setIsClickedSubject] = useState(false);
@@ -74,7 +77,12 @@ function SubjectInfos() {
           <div className="subject-img">
             <p>{subject_name}</p>
             <div>
-              <img src={favorite ? ColoredLibraryStar : UncoloredLibraryStar} />
+              <img
+                onClick={() => updateFavoriteSubject({ favorite, subjectId })}
+                src={
+                  favorite === true ? ColoredLibraryStar : UncoloredLibraryStar
+                }
+              />
             </div>
           </div>
           <div className="right-side-subject-infos">

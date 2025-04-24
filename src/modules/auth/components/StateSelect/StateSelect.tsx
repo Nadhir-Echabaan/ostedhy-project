@@ -65,6 +65,7 @@ function StateSelect({
             placeholder="Select your division"
             indicator={<KeyboardArrowDown />}
             onChange={handleSelectChange}
+            value={value}
             sx={{
               width: 240,
               [`& .${selectClasses.indicator}`]: {

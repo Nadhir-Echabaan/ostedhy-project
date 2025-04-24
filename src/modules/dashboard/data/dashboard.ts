@@ -35,7 +35,7 @@ export const dashboardApi = api.injectEndpoints({
         if (subjectsError) return { subjectsError };
         return { data: { recordings, subjects } };
       },
-      providesTags: [{ type: "expire_soon", id: "LIST" }],
+      providesTags: [{ type: "subjects", id: "LIST" }],
     }),
     getSessionsBySelectedDate: builder.query({
       queryFn: async () => {

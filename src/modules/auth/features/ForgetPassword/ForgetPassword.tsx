@@ -5,6 +5,7 @@ import OstedhyLogo from "../../assets/Group 33862.svg";
 
 import Input from "../../../shared/components/Input";
 import { useForgetPasswordMutation } from "../../data/auth";
+import toast from "react-hot-toast";
 function ForgetPassword() {
   const [forgetPassword] = useForgetPasswordMutation();
   const formik = useFormik({
@@ -15,13 +16,9 @@ function ForgetPassword() {
       email: Yup.string().required("Email is required").email("Invalid email"),
     }),
     onSubmit: async (values, { resetForm }) => {
-      const result = await forgetPassword(values);
-      if (result.error) {
-        console.error("Error:", result.error);
-      } else {
-        console.log("Reset email sent!");
-        resetForm();
-      }
+      await forgetPassword(values);
+      toast.success("Please check your email");
+      resetForm();
     },
   });
 
@@ -49,12 +46,7 @@ function ForgetPassword() {
             required={true}
           />
         </div>
-        <button
-          className="recover-button"
-          onClick={() => formik.handleSubmit()}
-        >
-          recover
-        </button>
+        <button className="recover-button">recover</button>
       </form>
     </div>
   );

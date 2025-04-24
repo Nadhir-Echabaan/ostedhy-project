@@ -8,11 +8,10 @@ import { useGetAllSubjectsQuery } from "../../data/subjects";
 import { subjectChapters } from "../../helpers/subjectChapters";
 
 function Subjects() {
-  const { data:subjects, isLoading } = useGetAllSubjectsQuery();
-  if (isLoading) return; 
+  const { data: subjects, isLoading } = useGetAllSubjectsQuery();
+  if (isLoading) return;
   return (
     <>
-      <Filter />
       <div className="subjects-grid">
         {subjects.map((subject) => (
           <Subject subjectData={subject} />

@@ -22,16 +22,17 @@ export const walletApi = api.injectEndpoints({
               date: new Date().toISOString(),
             },
           ]);
+        if (addPointError) {
+          toast.error("Operation failed");
+        }
         const { data: walletData, error: walletError } = await supabase
           .from("wallet")
           .update({ points: addedPoints })
           .eq("id", 1);
         if (walletError) {
-          return { walletError };
+          toast.error("Operation failed");
         }
-        if (addPointError) {
-          return { addPointError };
-        }
+        toast.success("points added successfully");
         return { data: { addPointsData, walletData } };
       },
       invalidatesTags: [{ type: "points", id: "LIST" }],
@@ -48,7 +49,7 @@ export const walletApi = api.injectEndpoints({
             },
           ]);
         if (transferError) {
-          return { transferError };
+          toast.error("Operation failed");
         }
         const { data: walletData, error: walletError } = await supabase
           .from("wallet")
@@ -57,6 +58,7 @@ export const walletApi = api.injectEndpoints({
         if (walletError) {
           return { walletError };
         }
+        toast.success("points transferred successfully");
         return { data: { walletData, transferData } };
       },
       invalidatesTags: [{ type: "points", id: "LIST" }],

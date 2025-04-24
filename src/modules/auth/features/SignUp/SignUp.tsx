@@ -17,7 +17,7 @@ function SignUp() {
       lastName: "",
       email: "",
       password: "",
-      phoneNumber: null,
+      phoneNumber: "",
       division: "",
       state: "",
     },

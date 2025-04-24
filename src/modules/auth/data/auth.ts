@@ -1,10 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // @ts-nocheck
-import PhoneNumber from "../../MyProfile/components/Inputs/PhoneNumberInput";
 import { api } from "../../shared/store/services/api";
 import supabase from "../../shared/store/services/supabase";
-import ForgetPassword from "../features/ForgetPassword/ForgetPassword";
+import toast from "react-hot-toast";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,12 +21,16 @@ export const authApi = api.injectEndpoints({
               state: values.state,
               birthDate: "",
               postalCode: 7080,
+              avatar:
+                "https://nemnkkgusenwmqjxkqeg.supabase.co/storage/v1/object/public/avatars//images.png",
             },
           },
         });
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("An error occurred during sign up");
+          throw error;
         }
+        toast.success("Successfully signed up, check your email");
         return { data };
       },
     }),
@@ -39,8 +42,10 @@ export const authApi = api.injectEndpoints({
         });
 
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("An error occurred during logging in");
+          throw error;
         }
+        toast.success("Successfully logged in");
         return { data };
       },
     }),
@@ -50,6 +55,7 @@ export const authApi = api.injectEndpoints({
         if (error) return { error };
         return { data };
       },
+      providesTags: [{ type: "userData", type: "LIST" }],
     }),
     updateUser: builder.mutation({
       queryFn: async (values) => {
@@ -63,10 +69,42 @@ export const authApi = api.injectEndpoints({
           },
         });
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("An error occurred during updating user");
+          throw error;
         }
+        toast.success("Successfully updated user");
         return { data };
       },
+    }),
+    updateUserAvatar: builder.mutation({
+      queryFn: async (avatar_url) => {
+        const { data, error } = await supabase.auth.updateUser({
+          data: {
+            avatar: avatar_url,
+          },
+        });
+        if (error) {
+          toast.error("An error occurred during updating user");
+          throw error;
+        }
+        toast.success("Successfully updated user");
+        return { data };
+      },
+      invalidatesTags: [{ type: "userData", type: "LIST" }],
+    }),
+    uploadImage: builder.mutation({
+      queryFn: async ({ imageName, file }) => {
+        const { data, error } = await supabase.storage
+          .from("avatars")
+          .upload(imageName, file);
+
+        if (error) {
+          return { error: { message: error.message } };
+        }
+
+        return { data };
+      },
+      invalidatesTags: [{ type: "userData", id: "LIST" }],
     }),
     updatePassword: builder.mutation({
       async queryFn(values) {
@@ -74,8 +112,10 @@ export const authApi = api.injectEndpoints({
           password: values.newPassword,
         });
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("An error occurred during password update");
+          throw error;
         }
+        toast.success("Successfully updated password");
         return { data };
       },
     }),
@@ -86,7 +126,8 @@ export const authApi = api.injectEndpoints({
           password: values.oldPassword,
         });
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("An error occurred during password verification");
+          throw error;
         }
         return { data };
       },
@@ -96,36 +137,23 @@ export const authApi = api.injectEndpoints({
         const { data, error } = await supabase.auth.resetPasswordForEmail(
           email,
           {
-            redirectTo: "http://localhost:3000/forget_password",
+            redirectTo: "http://localhost:3000/new_password",
           }
         );
         if (error) {
-          return { error: { message: error.message } };
+          toast.error("Wrong email");
         }
         return { data };
       },
     }),
-    deleteAvatar: builder.mutation({
-      async queryFn({ path }) {
-        const { error } = await supabase.storage.from("avatars").remove([path]);
-
-        if (error) return { error: { message: error.message } };
-        return { data: { success: true } };
-      },
-    }),
-
-    getAvatar: builder.query({
-      queryFn: async () => {
-        const { data: userData } = await supabase.auth.getUser();
-        const userId = userData.user?.id;
-
-        if (!userId) return { error: { message: "User not authenticated" } };
-
-        const { data, error } = await supabase.storage
-          .from("avatars")
-          .list(`public/${userId}`);
-
-        if (error) return { error: { message: error.message } };
+    logout: builder.mutation({
+      async queryFn() {
+        const { data, error } = await supabase.auth.signOut();
+        if (error) {
+          toast.error("An error occurred during logging out");
+          throw error;
+        }
+        toast.success("Successfully logged out");
         return { data };
       },
     }),
@@ -139,7 +167,8 @@ export const {
   useUpdatePasswordMutation,
   useVerifyCurrentPasswordMutation,
   useForgetPasswordMutation,
-  useDeleteAvatarMutation,
-  useGetAvatarQuery,
+  useUploadImageMutation,
+  useUpdateUserAvatarMutation,
   useGetUserQuery,
+  useLogoutMutation,
 } = authApi;

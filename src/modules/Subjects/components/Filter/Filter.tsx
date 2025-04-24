@@ -1,18 +1,13 @@
+import DurationSelector from "../DurationSelector/DurationSelector";
+import ReviewsSelector from "../ReviewsSelector/ReviewsSelector";
+
 function Filter() {
   return (
     <div className="filter-section">
       <p className="filter-title">Filter</p>
       <div className="selectors">
-        <select className="Reviews">
-          <option>Reviews</option>
-          <option>---</option>
-          <option>---</option>
-        </select>
-        <select className="Duration">
-          <option>Duration</option>
-          <option>---</option>
-          <option>---</option>
-        </select>
+       <ReviewsSelector />
+       <DurationSelector />
       </div>
     </div>
   );

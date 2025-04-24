@@ -9,7 +9,7 @@ function Profile() {
     <div className="profil-main-layout">
       <UpdatingProfileForm userData={data?.user?.user_metadata} />
       <div className="grid-right">
-        <UpdatingAvatar />
+        <UpdatingAvatar avatar={data?.user.user_metadata.avatar} />
         <UpdatingPassword email={data?.user?.email} />
       </div>
     </div>

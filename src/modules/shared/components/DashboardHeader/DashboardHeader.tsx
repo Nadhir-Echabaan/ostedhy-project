@@ -1,13 +1,16 @@
 import SearchIcon from "../../assets/NavIcons/fi_search.svg";
 import NotifIcon from "../../assets/NavIcons/fi_bell.svg";
 import WalletIcon from "../../assets/NavIcons/u_wallet.svg";
-import UserAvatarIcon from "../../assets/NavIcons/Ellipse 1.svg";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import { useGetUserPointsQuery } from "../../../Sessions/data/sessions.ts";
 
 import { useNavigate } from "react-router-dom";
+import { useGetUserQuery, useLogoutMutation } from "../../../auth/data/auth.ts";
 
 function DashboardHeader() {
+  const { data, isLoading: isLoadingUser } = useGetUserQuery();
+
   let section = window.location.pathname.split("/").at(1);
   if (section === "sessions") section = "Live Session";
   if (section === "dashboard") section = "Dashboard";
@@ -17,12 +20,12 @@ function DashboardHeader() {
   if (section === "wallet") section = "Wallet";
   if (section === "profil") section = "Profil";
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   function handleNavigateWallet() {
-    navigate("/wallet"); 
+    navigate("/wallet");
   }
   function handleNavigateProfil() {
-    navigate("/profil"); 
+    navigate("/profil");
   }
 
   const { data: amount, isLoading } = useGetUserPointsQuery({});
@@ -49,7 +52,11 @@ function DashboardHeader() {
             <span>{userPoints} PTS</span>
           </div>
         </div>
-        <img src={UserAvatarIcon} className="user-avatar" onClick={()=> handleNavigateProfil()} />
+        <img
+          src={data?.user?.user_metadata?.avatar}
+          className="user-avatar"
+          onClick={() => handleNavigateProfil()}
+        />
       </div>
     </header>
   );

@@ -21,6 +21,7 @@
     "@supabase/supabase-js": "^2.49.1",
     "@tanstack/react-query-devtools": "^4.36.1",
     "accessible-nprogress": "^2.1.2",
+    "antd": "^5.24.8",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",

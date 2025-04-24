@@ -35,14 +35,16 @@ function UpdatingPassword({ email }: any) {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await verifyCurrentPassword({
+        await verifyCurrentPassword({
           email,
           values,
         }).unwrap();
         await updatePassword(values).unwrap();
+        formik.resetForm();
         setIsOpenChange(false);
       } catch (error) {
-        console.error("Failed to verify password", error);
+        formik.resetForm();
+        setIsOpenChange(false);
       }
     },
   });
@@ -57,13 +59,12 @@ function UpdatingPassword({ email }: any) {
     <div className="update-password-container">
       {!isOpenChange && (
         <>
-          <p className="password">Password</p>
+          <p className="password-title">Password</p>
           <div className="password-flex-container">
             <input
               type="password"
               className="input-password"
-              placeholder="Enter your password"
-              value="*********"
+              value="********"
               disabled
             />
             <button className="change-btn" onClick={handleClickChange}>

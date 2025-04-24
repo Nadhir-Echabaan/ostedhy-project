@@ -4,6 +4,7 @@ import { Navigate, RouteProps } from "react-router-dom";
 import { Fragment, lazy } from "react";
 import { PATH } from "./paths";
 import GuestGuard from "../../shared/guards/GuestGuard";
+import AuthGuard from "../../shared/guards/AuthGuard";
 
 type RouteConfig = {
   exact: boolean | null;
@@ -50,7 +51,7 @@ const routes: RouteConfig[] = [
   },
   {
     exact: true,
-    guard: GuestGuard,
+    guard: AuthGuard,
     path: PATH.NEWPASSWORD,
     component: lazy(() => import("../features/NewPassword/NewPassword")),
     layout: GuestLayout,

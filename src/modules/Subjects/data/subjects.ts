@@ -3,7 +3,7 @@
 // @ts-nocheck
 import { api } from "../../shared/store/services/api";
 import supabase from "../../shared/store/services/supabase";
-import Subject from "../components/Subject/Subject";
+import toast from "react-hot-toast";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -104,7 +104,10 @@ export const subjectsApi = api.injectEndpoints({
         if (error) return { error };
         return { data };
       },
-      invalidatesTags: [{ type: "subjects", id: "LIST" }],
+      invalidatesTags: [
+        { type: "subject", id: "LIST" },
+        { type: "subjects", id: "LIST" },
+      ],
     }),
     getSubjectById: builder.query({
       queryFn: async ({ subjectId }) => {
@@ -116,7 +119,7 @@ export const subjectsApi = api.injectEndpoints({
         if (error) return { error };
         return { data };
       },
-      invalidatesTags: [{ type: "subject", id: "LIST" }],
+      providesTags: [{ type: "subject", id: "LIST" }],
     }),
     buySubject: builder.mutation({
       queryFn: async ({ subjectId, updatedPoints }) => {
@@ -128,7 +131,11 @@ export const subjectsApi = api.injectEndpoints({
               expiration_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
             })
             .eq("id", subjectId);
-        if (boughtSubjectError) return { boughtSubjectError };
+        if (boughtSubjectError) {
+          toast.error("You don't have enough points to buy this subject");
+          throw error;
+        }
+        toast.success("Successfully bought the subject");
         const { data: updatedWallet, error: updatedWalletError } =
           await supabase
             .from("wallet")

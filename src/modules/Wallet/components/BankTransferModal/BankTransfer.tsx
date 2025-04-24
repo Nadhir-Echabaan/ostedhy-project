@@ -4,16 +4,17 @@ import CloseButton from "../../assets/fi_x-circle.svg";
 import { useAddPointsMutation } from "../../data/wallet";
 import { useGetUserPointsQuery } from "../../../Sessions/data/sessions";
 
+import Input from "../../../shared/components/Input";
+
 function BankTransfer({
   setIsOpenBankTransferModal,
 }: {
   setIsOpenBankTransferModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [addPoints] = useAddPointsMutation();
-  const { data: amount, isLoading } = useGetUserPointsQuery({});
-  
+  const { data: amount, isLoading } = useGetUserPointsQuery();
 
-  let userPoints = amount.points;
+  let userPoints = amount?.points;
 
   const formik = useFormik({
     initialValues: {
@@ -37,16 +38,17 @@ function BankTransfer({
       try {
         await addPoints({
           values,
-          addedPoints: values.amount + userPoints,
+          addedPoints: values?.amount + userPoints,
         }).unwrap();
         formik.resetForm();
+
         setIsOpenBankTransferModal(false);
       } catch (error) {
         console.error("Failed to add points:", error);
       }
     },
   });
-  if (isLoading) return;
+
   return (
     <>
       <div className="modal-overlay"></div>

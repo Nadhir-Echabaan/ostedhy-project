@@ -5,14 +5,14 @@ import * as Yup from "yup";
 import Input from "../../../shared/components/Input";
 import { useNavigate } from "react-router-dom";
 import OstedhyLogo from "../../assets/Group 33862.svg";
+import { useAppDispatch } from "../../../shared/store";
+import { initialise } from "../../data/authSlice";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const [userLogin] = useUserLoginMutation(); 
-
+  const [userLogin] = useUserLoginMutation();
   const [submitting, setSubmitting] = useState<boolean>(false);
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -22,18 +22,21 @@ const Login = () => {
       email: Yup.string().required("Email is required"),
       password: Yup.string()
         .required("Password is required")
-        .min(6, "Password is too short!"),
+        .min(8, "Password is too short!"),
     }),
     onSubmit: async (values) => {
-      const response = await userLogin({ email:values.email , password: values.password });
-      console.log(response);
+      const response = await userLogin({
+        email: values.email,
+        password: values.password,
+      });
 
-      if (response?.data?.user?.aud === "authenticated") {
-        navigate("/dashboard")
-      }
+      dispatch(
+        initialise({ isAuthenticated: true, user: response?.data?.user })
+      );
+
+      navigate("/dashboard");
     },
   });
-  
 
   return (
     <div className="login_feature">
@@ -61,7 +64,12 @@ const Login = () => {
             type="password"
             required={true}
           />
-          <span className="forget-password" onClick={() => navigate("/forget_password")}>Forget password?</span>
+          <span
+            className="forget-password"
+            onClick={() => navigate("/forget_password")}
+          >
+            Forget password?
+          </span>
         </div>
 
         <button
@@ -71,7 +79,10 @@ const Login = () => {
         >
           Login
         </button>
-        <p className="navigate-sign-up">Don't have an account ? <span onClick={() => navigate("/sign_up")}>Sign Up</span></p>
+        <p className="navigate-sign-up">
+          Don't have an account ?{" "}
+          <span onClick={() => navigate("/sign_up")}>Sign Up</span>
+        </p>
       </form>
     </div>
   );

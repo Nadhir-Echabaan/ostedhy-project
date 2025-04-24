@@ -23,6 +23,12 @@
   align-items: center;
   width: 100%;
   height: 11.4rem;
+
+  img {
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+  }
 }
 .delete-avatar-btn {
   min-width: 11.4rem;
@@ -73,7 +79,7 @@
     width: 100%;
     border-radius: 8px 0 0 8px;
     margin-bottom: 10px;
-    background-color:#f8f7f7 ;
+    background-color: #f8f7f7;
   }
   button {
     max-width: 143px;

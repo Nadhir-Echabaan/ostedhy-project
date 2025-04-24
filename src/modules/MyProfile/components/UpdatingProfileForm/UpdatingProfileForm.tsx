@@ -22,7 +22,7 @@ function UpdatingProfileForm({ userData }: any) {
       firstName: userData?.firstName || "",
       lastName: userData?.lastName || "",
       birthDate: userData?.birthDate || "",
-      state: userData?.state || "", 
+      state: userData?.state || "",
       postalCode: userData?.postalCode || null,
     },
     enableReinitialize: true,
