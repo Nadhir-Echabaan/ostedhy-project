@@ -39,6 +39,7 @@ export const authApi = api.injectEndpoints({
         const { data, error } = await supabase.auth.signInWithPassword({
           email: values.email,
           password: values.password,
+          redirectTo: "https://madebynadhir.netlify.app/login",
         });
 
         if (error) {
@@ -137,7 +138,7 @@ export const authApi = api.injectEndpoints({
         const { data, error } = await supabase.auth.resetPasswordForEmail(
           email,
           {
-            redirectTo: "http://localhost:3000/new_password",
+            redirectTo: "https://madebynadhir.netlify.app/new_password",
           }
         );
         if (error) {
