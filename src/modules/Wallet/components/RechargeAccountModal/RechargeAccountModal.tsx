@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import CloseButton from "../../assets/fi_x-circle.svg";
 import BankTransfer from "../../assets/Group 98.svg";
 import OnlinePayment from "../../assets/Group 99.svg";

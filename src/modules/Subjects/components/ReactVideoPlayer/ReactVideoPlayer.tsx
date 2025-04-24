@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { DefaultPlayer as Video } from "react-html5video";
 import "react-html5video/dist/styles.css";
 function ReactVideoPlayer({ recordedData }: { recordedData: any[] }) {

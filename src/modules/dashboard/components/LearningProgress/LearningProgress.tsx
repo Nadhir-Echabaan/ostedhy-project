@@ -1,5 +1,5 @@
 import Chronometer from "../../assets/u_tachometer-fast-alt (1).svg"; 
-import ExpireSoonTable from "../ExpireSoonTable/ExpireSoonTable";
+
 import LearningProgressTable from "../LearningProgressTable/LearningProgressTable";
 function LearningProgress() {
   return (

@@ -1,0 +1,1 @@
+import{j as e}from"./index-ClQbt-RO.js";function s(){return e.jsx("div",{className:"offers-container",children:e.jsx("p",{className:"offers-content",children:"Unfortunately, there are no current offers available for this class."})})}export{s as default};

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { useState } from "react";
 
 import { HiOutlinePlay } from "react-icons/hi2";

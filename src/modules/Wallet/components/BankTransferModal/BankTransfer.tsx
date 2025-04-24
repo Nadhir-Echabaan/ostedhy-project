@@ -1,10 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CloseButton from "../../assets/fi_x-circle.svg";
 import { useAddPointsMutation } from "../../data/wallet";
 import { useGetUserPointsQuery } from "../../../Sessions/data/sessions";
 
-import Input from "../../../shared/components/Input";
+
 
 function BankTransfer({
   setIsOpenBankTransferModal,

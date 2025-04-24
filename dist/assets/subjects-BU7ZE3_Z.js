@@ -1,0 +1,1 @@
+import{j as t}from"./index-ClQbt-RO.js";import{S as a}from"./Subject-0AcICZwP.js";import{u as i}from"./subjects-BDxBwtQc.js";import"./Star 1-CRLQGew8.js";import"./formatDate-DKgZRy0c.js";function n(){const{data:s,isLoading:r}=i();if(!r)return t.jsx(t.Fragment,{children:t.jsx("div",{className:"subjects-grid",children:s.map(e=>t.jsx(a,{subjectData:e}))})})}export{n as default};

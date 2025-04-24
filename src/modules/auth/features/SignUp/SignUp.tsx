@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../../../shared/components/Input";

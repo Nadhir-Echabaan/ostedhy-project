@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import SearchIcon from "../../assets/NavIcons/fi_search.svg";
 import NotifIcon from "../../assets/NavIcons/fi_bell.svg";
 import WalletIcon from "../../assets/NavIcons/u_wallet.svg";

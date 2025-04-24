@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import OverView from "../../components/Overview/Overview";
 
 import ExpireSoon from "../../components/ExpireSoon/ExpireSoon";

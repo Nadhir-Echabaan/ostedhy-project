@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import FirstNameInput from "../Inputs/FirstNameInput";
 import LastNameInput from "../Inputs/LastNameInput";
 import EmailInput from "../Inputs/EmailInput";

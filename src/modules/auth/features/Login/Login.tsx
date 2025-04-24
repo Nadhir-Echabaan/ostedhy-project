@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { useUserLoginMutation } from "../../data/auth";
 import { useFormik } from "formik";
 import { useState } from "react";

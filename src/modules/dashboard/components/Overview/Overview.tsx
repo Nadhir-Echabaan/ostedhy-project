@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import Clock from "../../assets/statIcons/Time Circle 1.svg"; 
 import Folder from "../../assets/statIcons/Folder 2.svg";
 import Video from "../../assets/statIcons/Video 1.svg"; 

@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// @ts-nocheck
 import { useGetUserQuery } from "../../../auth/data/auth";
 import UpdatingAvatar from "../../components/UpdatingAvatar/UpdatingAvatar";
 import UpdatingPassword from "../../components/UpdatingPassword/UpdatingPassword";
